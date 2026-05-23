@@ -1,6 +1,6 @@
 <?php
 
-namespace YellowThree\Voyager\Commands;
+namespace YellowThree\Voyager\Console;
 
 use Illuminate\Foundation\Console\ModelMakeCommand;
 use Symfony\Component\Console\Input\InputOption;

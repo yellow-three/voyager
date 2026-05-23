@@ -1,6 +1,6 @@
 <?php
 
-namespace YellowThree\Voyager\Commands;
+namespace YellowThree\Voyager\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;

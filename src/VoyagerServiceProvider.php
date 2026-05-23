@@ -350,9 +350,9 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     private function registerConsoleCommands()
     {
-        $this->commands(Commands\InstallCommand::class);
-        $this->commands(Commands\ControllersCommand::class);
-        $this->commands(Commands\AdminCommand::class);
+        $this->commands(Console\InstallCommand::class);
+        $this->commands(Console\ControllersCommand::class);
+        $this->commands(Console\AdminCommand::class);
     }
 
     /**
@@ -360,6 +360,6 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     private function registerAppCommands()
     {
-        $this->commands(Commands\MakeModelCommand::class);
+        $this->commands(Console\MakeModelCommand::class);
     }
 }
