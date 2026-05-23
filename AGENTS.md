@@ -15,15 +15,18 @@ Her yeni oturumda, kodlamaya BASLAMADAN ONCE:
 
 | Alan | Deger |
 |---|---|
-| Paket | `tcg/voyager` |
+| **GitHub** | `yellow-three/voyager` |
+| **Upstream (arşivlenmiş fork kaynağı)** | `thedevdojo/voyager` (Feb 2025'te arşivlendi) |
+| **Packagist** | `yellow-three/voyager` |
+| **PHP Namespace** | `YellowThree\Voyager` |
 | Tip | Laravel 13 paketi (uygulama degil) |
-| PHP | ^8.3 |
+| PHP | ^8.3\|^8.4\|^8.5 |
 | Laravel | ^13.0 |
 | Livewire | ^4.0 (SFC default, MFC karmasik) |
 | CSS | Tailwind CSS 4 |
 | Build | Vite |
 | JS | Alpine.js, Dropzone, TinyMCE, CodeMirror 6 |
-| Test | PHPUnit |
+| Test | Pest 3 + orchestra/testbench ^11.0 |
 | CI/CD | GitHub Actions |
 
 ---
@@ -45,6 +48,8 @@ components::bread-table    → resources/views/components/⚡bread-table.blade.p
 pages::dashboard           → resources/views/pages/⚡dashboard.blade.php
 layouts::admin             → resources/views/layouts/⚡admin.blade.php
 ```
+
+PHP namespace: `YellowThree\Voyager\...` (eski `TCG\Voyager` artık kullanılmıyor)
 
 ### Kayit
 
@@ -98,8 +103,8 @@ voyager/
 │   │   ├── BackwardCompatibility/    # Shim katmani (FormFields, Widget, jQuery)
 │   │   └── Events/                   # 24 event (korunuyor)
 │   ├── plugins/                       # First-party plugin'ler
-│   │   ├── blog/                     # Post, Page, Category (tcg/voyager-blog)
-│   │   └── menu/                     # Menu, MenuItem (tcg/voyager-menu)
+│   │   ├── blog/                     # Post, Page, Category (yellow-three/voyager-blog)
+│   │   └── menu/                     # Menu, MenuItem (yellow-three/voyager-menu)
 ├── resources/
 │   ├── views/
 │   │   ├── components/               # Core Livewire SFC + MFC
@@ -130,7 +135,7 @@ voyager/
 │   └── lang/                        # 630 dil dosyasi (korunuyor)
 ├── routes/voyager.php               # Livewire + API route'lari
 ├── migrations/                       # 20 migration (korunuyor) + yenileri
-├── tests/                            # PHPUnit + Playwright E2E
+├── tests/                            # Pest 3 + Playwright E2E
 ├── vite.config.js
 ├── package.json
 └── composer.json
@@ -139,22 +144,39 @@ voyager/
 ## Plugin Generator
 
 ```bash
-php artisan voyager:make:plugin {name}
+./vendor/bin/testbench voyager:make:plugin {name}
 
 # Ornek:
-php artisan voyager:make:plugin blog
+./vendor/bin/testbench voyager:make:plugin blog
 # → plugins/blog/ iskeletini olusturur
 # → BlogPlugin.php, BlogServiceProvider.php, composer.json, routes, views, vb.
 ```
 
+## Branch Stratejisi
+
+```
+1.7  → donmus, sadece referans
+3.x  → aktif gelistirme (default)
+main → stabil release
+```
+
+Tum kodlama `3.x` branch'inde yapilir. `1.7` uzerinde degisiklik yapilmaz.
+
+## Repo Kurulumu
+
+- **Packagist**: `yellow-three/voyager` kaydedildi mi? → `packagist.org/packages/yellow-three/voyager`
+- **Plugin'ler**: `yellow-three/voyager-blog`, `yellow-three/voyager-menu`
+- **README**: Fork bildirimi baslikta yer aliyor mu?
+
 ## Validation Checklist (Gorev Tamamlama)
 
 - [ ] Pint calisiyor (`./vendor/bin/pint`)
-- [ ] PHPUnit testler geciyor (`./vendor/bin/phpunit`)
+- [ ] Pest testler geciyor (`./vendor/bin/pest`)
+- [ ] Namespace `YellowThree\Voyager` (eski `TCG\Voyager` yok)
 - [ ] Yeni Livewire component SFC/MFC kurallarina uygun
 - [ ] Plugin interface metodlari dogru implemente edilmis
 - [ ] Dil dosyasi anahtarlari (varsa) eklendi
-- [ ] Playwright E2E (varsa) gecmiyor
+- [ ] Playwright E2E (varsa) geciyor
 - [ ] Vite build hatasiz (`npm run build`)
 
 ## "Do Not Edit" Listesi
@@ -204,7 +226,7 @@ gh workflow run <name>
 ### Release
 
 ```bash
-gh release create v3.0.0 --title "v3.0.0" --notes "Migration to Laravel 13 + Livewire 4 + Tailwind + Vite"
+gh release create v3.0.0 --title "v3.0.0" --notes "Community fork: Laravel 13 + Livewire 4 + Tailwind 4 + Vite (yellow-three/voyager)"
 gh release list
 gh release view v3.0.0
 ```
@@ -212,15 +234,74 @@ gh release view v3.0.0
 ### Repo
 
 ```bash
-gh repo view
-gh repo set-default
+gh repo view yellow-three/voyager
+gh repo set-default yellow-three/voyager
 ```
 
 ### API (GitHub API)
 
 ```bash
-gh api repos/owner/repo/issues
-gh api repos/owner/repo/pulls/123/comments
+gh api repos/yellow-three/voyager/issues
+gh api repos/yellow-three/voyager/pulls/123/comments
+```
+
+---
+
+## Git Remote Kurulumu
+
+Bu proje `thedevdojo/voyager@1.7`'nin fork'udur. Remote'lar:
+
+```bash
+# Fork (calisilan repo)
+git remote -v
+# origin  https://github.com/yellow-three/voyager.git (fetch)
+# origin  https://github.com/yellow-three/voyager.git (push)
+
+# Upstream (arşivlenmiş kaynak — sadece referans, PR/merge yok)
+git remote add upstream https://github.com/thedevdojo/voyager
+git remote set-url --push upstream DISABLED
+
+# Upstream'den sadece okuma (gerekirse)
+git fetch upstream
+git log upstream/1.7..HEAD --oneline
+```
+
+> **Not:** Upstream artık arşivlenmiş durumda (read-only). Sadece tarihsel karşılaştırma için kullanılır, merge yapılmaz.
+
+---
+
+## Testbench Komutlari
+
+Bu proje bir **Laravel paketidir**, uygulama degil. `php artisan` komutlari dogrudan calistirilmaz, `orchestra/testbench` üzerinden calisir:
+
+```bash
+# Artisan komutlarini testbench ile calistir
+./vendor/bin/testbench [artisan-komutu]
+
+# Ornekler:
+./vendor/bin/testbench voyager:install
+./vendor/bin/testbench voyager:upgrade
+./vendor/bin/testbench voyager:make:plugin my-plugin
+./vendor/bin/testbench migrate
+./vendor/bin/testbench db:seed --class=VoyagerDatabaseSeeder
+
+# Test suite (Pest)
+./vendor/bin/pest
+./vendor/bin/pest --filter=BreadTableTest
+# PHPUnit'den Pest'e migrate: ./vendor/bin/pest --migrate
+
+# Pint (kod stili)
+./vendor/bin/pint
+
+# Vite build
+npm run build
+
+# Playwright E2E
+npx playwright test
+npx playwright test tests/E2E/
+
+# Translation CI validator
+./vendor/bin/testbench voyager:validate-lang
 ```
 
 ---
@@ -262,7 +343,7 @@ docs(scope): mesaj          # Dokumantasyon
 wip(scope): mesaj           # Devam eden is
 ```
 
-Scope ornekleri: `bread-table`, `bread-form`, `media-manager`, `plugin-system`, `theme-system`, `deps`, `vite`, `tailwind`, `tests`, `cli-generator`, `model-registry`, `e2e`, `ci`, `docs`
+Scope ornekleri: `bread-table`, `bread-form`, `media-manager`, `plugin-system`, `theme-system`, `deps`, `vite`, `tailwind`, `tests`, `cli-generator`, `model-registry`, `e2e`, `ci`, `docs`, `namespace`, `branch-strategy`, `pest`
 
 ### 3. Kullaniciyi Bilgilendir
 
@@ -272,9 +353,12 @@ Commit mesaji ve push durumunu soyle.
 
 ## NOTLAR
 
-1. Bu proje bir **Laravel paketidir**, uygulama degil. `orchestra/testbench` ile test edilir.
-2. `php artisan` komutlari proje kokunde degil, testbench icinde calisir.
+1. Bu proje bir **Laravel paketidir**, uygulama degil. `orchestra/testbench ^11.0` ile test edilir. Test framework'u **Pest 3**'tur.
+2. `php artisan` komutlari dogrudan degil, `./vendor/bin/testbench [komut]` ile calistirilir.
 3. `laravel/boost` kullanilmiyor (package oldugu icin anlamsiz).
 4. `npm run build` ile Vite assets derlenir, `publishable/assets/build/`'e cikar.
 5. Playwright E2E testleri `tests/E2E/` altinda, `npx playwright test` ile calistirilir.
-6. Translation CI validator: `php artisan voyager:validate-lang` komutuyla tum dillerde eksik anahtar kontrolu.
+6. Translation CI validator: `./vendor/bin/testbench voyager:validate-lang` komutuyla tum dillerde eksik anahtar kontrolu.
+7. PHP Namespace **`YellowThree\Voyager`** — eski `TCG\Voyager` namespace'i artık kullanılmıyor. Yeni dosya/sinif yazarken dikkat et.
+8. Packagist paket adı **`yellow-three/voyager`** — plugin'ler icin `yellow-three/voyager-blog`, `yellow-three/voyager-menu`.
+9. Upstream `thedevdojo/voyager` arşivlenmiştir (Şubat 2025). Sadece tarihsel referans amaçlıdır.

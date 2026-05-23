@@ -13,11 +13,10 @@
 7. [Themes & Plugins](#7-themes--plugins)
 8. [Blog Plugin (First-Party)](#8-blog-plugin-first-party)
 9. [v2 → v3 Geçiş Stratejisi](#9-v2--v3-geçiş-stratejisi)
-10. [Branch Stratejisi](#10-branch-stratejisi)
-11. [Aşamalar](#11-aşamalar)
-12. [İş Takvimi](#12-i̇ş-takvimi)
-13. [Riskler & Dikkat Edilmesi Gerekenler](#13-riskler--dikkat-edilmesi-gerekenler)
-14. [v3.1+ Yol Haritası](#14-v31-yol-haritası)
+10. [Aşamalar](#10-aşamalar)
+11. [İş Takvimi](#11-iş-takvimi)
+12. [Riskler & Dikkat Edilmesi Gerekenler](#12-riskler--dikkat-edilmesi-gerekenler)
+13. [v3.1+ Yol Haritası](#13-v31-yol-haritası)
 
 #### Bagisto'dan Alınan Fikirler
 
@@ -45,7 +44,6 @@ Hedef, Voyager'ın BREAD + admin panel anlayışını modern PHP/Laravel ekosist
 | Extensibility | Dağınık extension noktaları → tutarlı Plugin sistemi |
 | Performance | 2.5 MB JS bundle → Vite + tree-shaking |
 | Maintainability | Class-based Blade views → SFC/MFC |
-| Community fork | `tcg/voyager` → `yellow-three/voyager`, projeler `composer.json` güncellemeli |
 
 ---
 
@@ -69,7 +67,7 @@ Hedef, Voyager'ın BREAD + admin panel anlayışını modern PHP/Laravel ekosist
 
 | Alan | Mevcut (v1.7 fork) | Hedef (v3) |
 |---|---|---|
-| PHP | ^8.2\|^8.3 | ^8.3\|^8.4\|^8.5 |
+| PHP | ^8.2\|^8.3 | ^8.3\|^8.4 |
 | Laravel | ~8.0–~11.0 | ^13.0 |
 | Frontend Framework | jQuery 3.x + Vue 2.7 | Livewire 4 + Alpine.js |
 | CSS | Bootstrap 3 (SCSS) | Tailwind CSS 4 |
@@ -77,7 +75,7 @@ Hedef, Voyager'ın BREAD + admin panel anlayışını modern PHP/Laravel ekosist
 | JS Libraries | select2, DataTables, toastr, dropzone, TinyMCE, EasyMDE, Ace, nestable2, vb. | Livewire-native + Alpine (dropzone korunacak) |
 | Component Format | Yok | SFC (default) + MFC (karmasik) |
 | Extensibility | FormField handler siniflari + Events | Plugin sistemi (unified) |
-| Test | PHPUnit + orchestra/testbench | Pest 3 + orchestra/testbench ^11.0 |
+| Test | PHPUnit + orchestra/testbench | PHPUnit + orchestra/testbench ^11.0 |
 | Packagist | `tcg/voyager` (arşivlenmiş) | `yellow-three/voyager` |
 | PHP Namespace | `TCG\Voyager` | `YellowThree\Voyager` |
 
@@ -282,7 +280,7 @@ Proje                                                   Versiyon
 | 34 | `tools/bread/edit-add.blade.php` | SFC | `components.bread-tools-form` |
 | 35 | `tools/bread/read.blade.php` | SFC | Inline |
 | 36 | `tools/database/index.blade.php` | MFC | `components.database-manager` |
-| 37-43 | `tools/database/vue-components/*` (5 Vue SFC: types, table, viewer, columns, index) | MFC | Livewire component'lere dagitildi — `database-manager` MFC icinde inline cozuldu |
+| 37-43 | `tools/database/vue-components/*` | MFC | Livewire component'leri |
 
 ### 5E – CRUD & Yönetim View'leri (CORE)
 
@@ -734,62 +732,22 @@ Mevcut 11 seeder guncelleniyor:
 
 ---
 
-## 10. Branch Stratejisi
-
-```
-1.7        → donmus, sadece referans (mevcut default)
-3.x        → aktif geliştirme branch'i (bu acilacak, default yapilacak)
-main       → stabil release (3.0.0 cikinca buraya merge)
-```
-
-- Tum kodlama `3.x` branch'inde yapilir
-- `3.x` branch'i acilir acilmaz default yapilir
-- `main` branch'i bos/readme-only kalir, ilk release'de (3.0.0) `3.x` → `main` merge edilir
-- `1.7` branch'i korunur (history referansi)
-- Hotfix varsa `3.x`'e acilir, `main`'e cherry-pick
-
----
-
-## 11. Aşamalar
+## 10. Aşamalar
 
 ### Asama 1: Proje Altyapisi & Bagimliliklar
 
-**1a — Namespace, bagimliliklar, config (src/ flat kalir)**
-
 - `composer.json` guncelle:
   - `name`: `yellow-three/voyager`
-  - PHP: `^8.3|^8.4|^8.5`
+  - PHP: `^8.3|^8.4`
   - Laravel: `^13.0`
   - Livewire: `^4.0`
-  - Dev: `orchestra/testbench: ^11.0`, `pestphp/pest: ^3.0`
-  - `intervention/image`: `^3.0` (v2 API degisti, v3 gerekli)
-- Remove `arrilot/laravel-widgets`, `phpunit/phpunit`
-- Namespace: `TCG\Voyager` → `YellowThree\Voyager` (tum `src/`, `tests/`, `publishable/`, `stubs/`)
-  ```bash
-  # src/ (PHP siniflari)
-  find src/ -name '*.php' -exec sed -i 's/namespace TCG\\Voyager/namespace YellowThree\\Voyager/g' {} +
-  find src/ -name '*.php' -exec sed -i 's/use TCG\\Voyager/use YellowThree\\Voyager/g' {} +
-  # tests/
-  find tests/ -name '*.php' -exec sed -i 's/TCG\\Voyager/YellowThree\\Voyager/g' {} +
-  # publishable/config/voyager.php (default model referanslari)
-  sed -i 's/TCG\\Voyager\\Models/YellowThree\\Voyager\\Models/g' publishable/config/voyager.php
-  # stubs/ (varsa)
-  find stubs/ -name '*.php' -exec sed -i 's/TCG\\Voyager/YellowThree\\Voyager/g' {} +
-  ```
-- PHPUnit → Pest gecisi: `./vendor/bin/pest --migrate` ile 34 testi donustur
+  - Dev: `orchestra/testbench: ^11.0`, `phpunit/phpunit: ^11.0`
+- Namespace: `TCG\Voyager` → `YellowThree\Voyager` (tum `src/` klasoru)
+- `arrilot/laravel-widgets` bagimliligini kaldir
 - `package.json` yenile (Vite + Tailwind 4 + Alpine + Dropzone + TinyMCE + CodeMirror)
 - `laravel/boost` eklenmeyecek (package oldugu icin)
-- Upstream remote kontrol et: `git remote get-url upstream` yoksa `git remote add upstream https://github.com/thedevdojo/voyager`
-- `3.x` branch'ini olustur ve default yap (sonraki tum calismalar bu branch'te)
-
-**1b — src/ reorganizasyonu (namespace ayni kalir)**
-
-Namespace migration ayri bir adim oldugu icin `src/` → `src/Core/` restructuring ayri yapilir:
-- `src/Core/Models/`, `src/Core/Http/Controllers/`, `src/Core/FormFields/`, vb. klasorleri olustur
-- Mevcut flat dosyalari yeni klasor yapisina tasi
-- `composer.json` PSR-4: `"YellowThree\\Voyager\\": "src/Core/"` olarak guncelle
-- Plugin'ler `src/plugins/` altinda kalir (reorganizasyondan etkilenmez)
-- `git mv` ile yap, boylece git history korunur
+- `.github/workflows/` CI guncelle (PHP 8.3 + 8.4, Laravel 13)
+- `git remote add upstream https://github.com/thedevdojo/voyager`
 
 ### Asama 2: Build Sistemi – Mix → Vite
 
@@ -847,15 +805,6 @@ Namespace migration ayri bir adim oldugu icin `src/` → `src/Core/` restructuri
 
 8a. `app/FormFields/` shim katmani (deprecation warning)
 8b. `php artisan voyager:upgrade` CLI komutu
-    - `data_types.model_name` namespace guncelleme (TCG → YellowThree)
-      ```php
-      DB::table('data_types')
-          ->where('model_name', 'like', 'TCG\\Voyager\\%')
-          ->each(fn($row) => DB::table('data_types')
-              ->where('id', $row->id)
-              ->update(['model_name' => str_replace('TCG\\Voyager\\', 'YellowThree\\Voyager\\', $row->model_name)])
-          );
-      ```
 8c. `Widget::run()` shim
 8d. `@extends('voyager::master')` → Livewire layout redirect
 8e. UPGRADE.md + CHANGELOG.md
@@ -898,45 +847,28 @@ Namespace migration ayri bir adim oldugu icin `src/` → `src/Core/` restructuri
 
 ### Asama 13: Testler & CI
 
-- Mevcut 34 test KORUNACAK (Pest'e migrate edildi, namespace guncellendi)
-- Livewire component testleri (Pest ile) EKLENECEK
+- Mevcut 34 test KORUNACAK (namespace guncellenmesi gerekecek)
+- Livewire component testleri EKLENECEK
 - Activity Log testleri
 - Plugin sistemi testleri
 - Blog plugin testleri
 - Upgrade komutu testleri
 - Playwright E2E test altyapisi — temel admin akislari
 - Translation CI validator — 630 dil dosyasinin eksiksiz oldugunu CI'da kontrol et
-- GitHub Actions CI matrix:
-  ```yaml
-  strategy:
-    matrix:
-      php: [8.3, 8.4, 8.5]
-      laravel: [13.*]
-      stability: [prefer-lowest, prefer-stable]
-  ```
-- Dependabot: `.github/dependabot.yml` ekle (composer + npm, weekly)
 
-### Asama 14: Dokumantasyon & Repo Kurulum
+### Asama 14: Dokumantasyon
 
 - Repository map in Agents.md guncelle
 - `docs/bagisto-comparison.md` — Bagisto mimarisiyle karsilastirma
 - `docs/migration-from-tcg-voyager.md` — `tcg/voyager` → `yellow-three/voyager` gecis rehberi
-- README basina fork bildirimi ekle:
-  ```markdown
-  > **Community Fork:** Bu proje `thedevdojo/voyager`'in (Subat 2025'te arsivlendi)
-  > topluluk tarafindan surdurulen devamidir. Laravel 13 + Livewire 4 + Tailwind 4
-  > uzerine tamamen yeniden yazilmaktadir.
-  ```
-- Packagist kaydi: `packagist.org/packages/submit` → GitHub repo URL'i ile v3-alpha olarak kaydet
 
 ---
 
-## 12. İş Takvimi
+## 11. İş Takvimi
 
 | Asama | Is | Sure (gun) |
 |---|---|---|
-| **1a** | Proje altyapisi, bagimliliklar, namespace + Pest migration | 1.5 |
-| **1b** | src/ reorganizasyonu (flat → Core/) | 1 |
+| **1** | Proje altyapisi & bagimliliklar + namespace migration | 1.5 |
 | **2** | Build sistemi (Mix → Vite) | 0.5 |
 | **3** | CSS donusumu (SCSS → Tailwind) | 2-3 |
 | **4** | JavaScript donusumu | 3-4 |
@@ -967,13 +899,13 @@ Namespace migration ayri bir adim oldugu icin `src/` → `src/Core/` restructuri
 | **10** | Controller API layer | 1.5 |
 | **11** | Routes & Service Provider | 0.5 |
 | **12** | Publishable assets | 1 |
-| **13** | Testler & CI (Pest + Playwright E2E + CI matrix + Dependabot) | 4-5 |
-| **14** | Dokumantasyon & Repo Kurulum (README, Packagist, fork bildirimi) | 1 |
-| | **Toplam** | **~49-59 gun** |
+| **13** | Testler & CI (PHPUnit + Playwright E2E + Translation CI) | 4-5 |
+| **14** | Dokumantasyon | 1 |
+| | **Toplam** | **~47-57 gun** |
 
 ---
 
-## 13. Riskler & Dikkat Edilmesi Gerekenler
+## 12. Riskler & Dikkat Edilmesi Gerekenler
 
 ### Yüksek Öncelikli
 
@@ -1017,7 +949,7 @@ Namespace migration ayri bir adim oldugu icin `src/` → `src/Core/` restructuri
 
 ---
 
-## 14. v3.1+ Yol Haritası
+## 13. v3.1+ Yol Haritası
 
 | Özellik | Tahmini Sure | Aciklama |
 |---|---|---|
