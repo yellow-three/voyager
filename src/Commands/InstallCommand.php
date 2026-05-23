@@ -129,8 +129,10 @@ class InstallCommand extends Command
             $this->call('vendor:publish', ['--provider' => VoyagerServiceProvider::class, '--tag' => ['config', 'voyager_avatar']]);
         }
 
-        $this->info('Dumping the autoloaded files and reloading all new files');
-        $this->composer->dumpAutoloads();
+        if (app()->environment() !== 'testing') {
+            $this->info('Dumping the autoloaded files and reloading all new files');
+            $this->composer->dumpAutoloads();
+        }
 
         $this->info('Seeding data into the database');
         $this->call('db:seed', ['--class' => 'VoyagerDatabaseSeeder', '--force' => $this->option('force')]);
