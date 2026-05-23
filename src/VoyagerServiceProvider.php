@@ -78,6 +78,21 @@ class VoyagerServiceProvider extends ServiceProvider
             return new Voyager();
         });
 
+        // BreadManager singleton
+        $this->app->singleton(Bread\BreadManager::class, function () {
+            return new Bread\BreadManager(
+                json: new Bread\Sources\JsonBreadSource(storage_path('voyager/breads')),
+                database: new Bread\Sources\DatabaseBreadSource(),
+            );
+        });
+        $this->app->alias(Bread\BreadManager::class, 'voyager.bread');
+
+        // PluginManager singleton
+        $this->app->singleton(Plugins\PluginManager::class);
+
+        // ThemeManager singleton
+        $this->app->singleton(Themes\ThemeManager::class);
+
         $this->app->singleton('VoyagerGuard', function () {
             return config('auth.defaults.guard', 'web');
         });
@@ -366,6 +381,8 @@ class VoyagerServiceProvider extends ServiceProvider
         $this->commands(Console\ControllersCommand::class);
         $this->commands(Console\AdminCommand::class);
         $this->commands(Console\MakePluginCommand::class);
+        $this->commands(Console\ExportBreadsCommand::class);
+        $this->commands(Console\ImportBreadsCommand::class);
     }
 
     /**
