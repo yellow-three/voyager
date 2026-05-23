@@ -365,6 +365,7 @@ class VoyagerServiceProvider extends ServiceProvider
         $this->commands(Console\InstallCommand::class);
         $this->commands(Console\ControllersCommand::class);
         $this->commands(Console\AdminCommand::class);
+        $this->commands(Console\MakePluginCommand::class);
     }
 
     /**
