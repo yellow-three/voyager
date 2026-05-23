@@ -168,6 +168,81 @@ Tum kodlama `3.x` branch'inde yapilir. `1.7` uzerinde degisiklik yapilmaz.
 - **Plugin'ler**: `yellow-three/voyager-blog`, `yellow-three/voyager-menu`
 - **README**: Fork bildirimi baslikta yer aliyor mu?
 
+## Packagist & Release Islemleri
+
+### Packagist Kaydi
+
+```bash
+# 1. Packagist'te paket kaydetme:
+# https://packagist.org/packages/submit
+# URL: https://github.com/yellow-three/voyager
+
+# 2. GitHub webhook ekle (automatic update):
+# https://packagist.org/profile/edit-profile → GitHub Service
+
+# 3. Plugin paketleri (ayri repo):
+# yellow-three/voyager-menu → packagist.org/packages/yellow-three/voyager-menu
+# yellow-three/voyager-blog → packagist.org/packages/yellow-three/voyager-blog
+```
+
+### GitHub Release
+
+```bash
+# v3.0.0-alpha release olustur
+gh release create v3.0.0-alpha \
+  --title "v3.0.0-alpha" \
+  --notes-file /tmp/release-notes.md \
+  --prerelease
+
+# Notlar icin template:
+cat > /tmp/release-notes.md << 'EOF'
+## v3.0.0-alpha — Community Fork
+
+**yellow-three/voyager** — Laravel 13 + Livewire 4 + Tailwind CSS 4 + Vite
+
+This is the first alpha release of the community-maintained fork.
+
+### Yeni Ozellikler
+- Full Livewire 4 UI (SFC/MFC) — Bootstrap/JQuery kalkti
+- Tailwind CSS 4 — @theme token sistemi
+- Plugin sistemi — BasePlugin + granuler contract'lar
+- Hibrit BreadManager — JSON-first, DB fallback
+- Activity Log, Cache Manager, Queue Manager, Maintenance Mode
+- Upgrade Wizard — v2 → v3 CLI + web UI
+- Ilk parti plugin'ler: voyager-menu, voyager-blog
+
+### Degisiklikler
+- PHP namespace: TCG\\Voyager → YellowThree\\Voyager
+- Packagist: tcg/voyager → yellow-three/voyager
+- Test: PHPUnit → Pest 3
+- Build: Laravel Mix → Vite
+- Frontend: Bootstrap 3 → Tailwind 4, jQuery → Alpine.js, Vue 2 → Livewire 4
+
+### Bilinen Sorunlar
+- BREAD Media Upload test suite henuz duzeltilmedi
+- Compass test suite henuz duzeltilmedi
+- 630 dil dosyasi korunuyor, CI validator eklenecek
+- Playwright E2E testleri henuz yazilmadi
+
+### Kurulum
+```bash
+composer require yellow-three/voyager:^3.0-alpha
+php artisan voyager:install --with-dummy
+```
+EOF
+
+# Release'i kontrol et
+gh release view v3.0.0-alpha
+```
+
+### Branch Stratejisi (Tekrar)
+
+```
+1.7  → donmus, sadece referans
+3.x  → aktif gelistirme (default)
+main → stabil release (3.0.0 cikinca 3.x → main merge)
+```
+
 ## Validation Checklist (Gorev Tamamlama)
 
 - [ ] Pint calisiyor (`./vendor/bin/pint`)
@@ -178,6 +253,8 @@ Tum kodlama `3.x` branch'inde yapilir. `1.7` uzerinde degisiklik yapilmaz.
 - [ ] Dil dosyasi anahtarlari (varsa) eklendi
 - [ ] Playwright E2E (varsa) geciyor
 - [ ] Vite build hatasiz (`npm run build`)
+- [ ] Packagist kaydi yapildi
+- [ ] GitHub release olusturuldu
 
 ## "Do Not Edit" Listesi
 

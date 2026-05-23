@@ -55,12 +55,13 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // KRITIK: Package SFC/MFC'leri için zorunlu Livewire 4 bileşen kaydı
+        // KRITIK: Package SFC bileşenleri için Livewire namespace kaydı
+        // `<livewire:voyager::⚡component-name />` şeklinde kullanım sağlar
         try {
-            if (class_exists(\Livewire\Livewire::class) && method_exists(\Livewire\Livewire::class, 'addComponentPath')) {
-                \Livewire\Livewire::addComponentPath(
-                    namespace: 'YellowThree\\Voyager',
-                    path: __DIR__.'/../resources/views/components',
+            if (class_exists(\Livewire\Livewire::class)) {
+                \Livewire\Livewire::addNamespace(
+                    namespace: 'voyager',
+                    viewPath: __DIR__.'/../resources/views/components',
                 );
             }
         } catch (\Throwable $e) {

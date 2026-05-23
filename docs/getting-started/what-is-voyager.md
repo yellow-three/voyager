@@ -1,24 +1,31 @@
-# What is Voyager
+# What is Voyager v3?
 
-Before installing Voyager it is very important to take a quick moment to learn _what it is_ & _what it isn't_.
+Voyager v3 (`yellow-three/voyager`) is a community-maintained admin panel for Laravel. It's a complete rewrite of the now-archived `thedevdojo/voyager` package, rebuilt with modern Laravel tooling.
 
 ## What it is
 
-* An admin interface for your Laravel app
-* An easy way to add/edit/delete data for your app
-* A menu builder \(build menus in Voyager for your app\)
-* A media manager for your files
-* CRUD/BREAD generator \([learn more about BREAD here](../bread/introduction.md)\)
-
-Voyager is simply an admin for your Laravel app. Whatever you want your app to do on the front-end is completely up to you. You are in control of your application and you can use Voyager to make your life easier by adding data, editing users, creating menus, and many other administrative tasks.
+- An admin interface for your Laravel app — powered by **Livewire 4** and **Tailwind CSS 4**
+- A CRUD/BREAD generator with **JSON-first definitions** (version-controllable!)
+- A media manager with drag-and-drop uploads
+- A menu builder via the `voyager-menu` plugin
+- An extensible **plugin system** with granular contracts
+- A role/permission management system
+- An activity logger for tracking admin actions
 
 ## What it isn't
 
-* A content management system \(CMS\)
-* A blogging platform
-* Wordpress \(Bleh! 😜\)
+- A content management system (CMS) — though it can be used to build one
+- A blogging platform — but you can add blog capabilities via the `voyager-blog` plugin
+- WordPress — Voyager gives you full control over your application
 
-Voyager is not a CMS or a blogging platform. But it can be used to create a CMS or a blogging platform, but out of the box it is neither of those. As stated in the previous section you have full control on what your application will do and how it will function.
+> **Think of Voyager as a toolkit for building admin panels, not a pre-built admin.** You're in control of your front-end. Voyager handles the heavy lifting of data management, file uploads, user permissions, and more.
 
-With Laravel & Voyager you can create any kind of application your heart desires. Laravel & Voyager are simply tools to make it easier to build.
+## Built with
 
+| Technology | Role |
+|---|---|
+| **Livewire 4** | Reactive UI components (SFC/MFC) |
+| **Tailwind CSS 4** | Modern utility-first styling |
+| **Alpine.js** | Lightweight JavaScript interactivity |
+| **Vite** | Fast build tooling |
+| **Pest 3** | Testing framework |

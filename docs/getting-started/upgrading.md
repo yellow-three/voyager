@@ -1,20 +1,29 @@
 # Upgrading
 
-## Upgrading 1.5 to 1.6
+## v2 → v3 Migration
 
-### Update your Composer.json
+Voyager v3 is a complete rewrite of the community fork `yellow-three/voyager`. If you're migrating from the original `tcg/voyager` or `thedevdojo/voyager` (v1.x), see:
 
-To update to the latest version inside of your composer.json file make sure to update the version of Voyager inside the require declaration of your composer.json to:
+- **[UPGRADE.md](../../UPGRADE.md)** — Step-by-step upgrade guide
+- **[Migration Guide](../migration.md)** — Namespace migration reference
 
-`tcg/voyager": "1.6.*`
+### Quick Start
 
-And then run `composer update`
+```bash
+# Remove old package
+composer remove tcg/voyager
 
-### Check your TinyMCE configuration
+# Install v3
+composer require yellow-three/voyager:^3.0-alpha
 
-TinyMCE was updated to version 6 and with that, a lot of configurations have changed.  
-If there are any errors in the console and you changed the TinyMCE configuration, make sure you are using the latest options and values from their docs.
+# Run upgrade wizard
+php artisan voyager:upgrade
+```
 
-### Troubleshooting
+## v3 Minor Upgrades
 
-Be sure to ask us on our slack channel if you are experiencing any issues and we will try and assist. Thanks.
+```bash
+composer update yellow-three/voyager
+```
+
+Check [CHANGELOG.md](../../CHANGELOG.md) for breaking changes between minor versions.
