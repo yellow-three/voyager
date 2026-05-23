@@ -55,6 +55,14 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // KRITIK: Package SFC/MFC'leri için zorunlu Livewire 4 bileşen kaydı
+        if (class_exists(\Livewire\Livewire::class)) {
+            \Livewire\Livewire::addComponentPath(
+                namespace: 'YellowThree\\Voyager',
+                path: __DIR__.'/../resources/views/components',
+            );
+        }
+
         $this->app->register(VoyagerEventServiceProvider::class);
         // $this->app->register(ImageServiceProvider::class);
         $this->app->register(VoyagerDummyServiceProvider::class);
