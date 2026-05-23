@@ -159,6 +159,9 @@ class VoyagerServiceProvider extends ServiceProvider
         if (method_exists('Paginator', 'useBootstrap')) {
             Paginator::useBootstrap();
         }
+
+        // Backward compatibility shims boot
+        \YellowThree\Voyager\BackwardCompatibility\FormFieldShim::boot();
     }
 
     /**
@@ -383,6 +386,7 @@ class VoyagerServiceProvider extends ServiceProvider
         $this->commands(Console\MakePluginCommand::class);
         $this->commands(Console\ExportBreadsCommand::class);
         $this->commands(Console\ImportBreadsCommand::class);
+        $this->commands(Console\UpgradeCommand::class);
     }
 
     /**
