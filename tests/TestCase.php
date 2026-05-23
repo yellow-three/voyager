@@ -49,6 +49,8 @@ class TestCase extends OrchestraTestCase
         return [
             \Livewire\LivewireServiceProvider::class,
             VoyagerServiceProvider::class,
+            \YellowThree\VoyagerMenu\MenuServiceProvider::class,
+            \YellowThree\VoyagerBlog\BlogServiceProvider::class,
         ];
     }
 

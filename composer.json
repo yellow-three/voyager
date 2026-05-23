@@ -37,7 +37,9 @@
   },
   "autoload": {
     "psr-4": {
-      "YellowThree\\Voyager\\": "src/"
+      "YellowThree\\Voyager\\": "src/",
+      "YellowThree\\VoyagerMenu\\": "plugins/menu/src/",
+      "YellowThree\\VoyagerBlog\\": "plugins/blog/src/"
     }
   },
   "autoload-dev": {
@@ -52,7 +54,9 @@
     "laravel": {
       "providers": [
         "YellowThree\\Voyager\\VoyagerServiceProvider",
-        "YellowThree\\Voyager\\Providers\\VoyagerDummyServiceProvider"
+        "YellowThree\\Voyager\\Providers\\VoyagerDummyServiceProvider",
+        "YellowThree\\VoyagerMenu\\MenuServiceProvider",
+        "YellowThree\\VoyagerBlog\\BlogServiceProvider"
       ]
     }
   },
