@@ -60,6 +60,9 @@
 
             <!-- Page Content Body -->
             <main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+                <!-- Impersonation Banner -->
+                <livewire:voyager::⚡impersonation />
+
                 <!-- Notifications container -->
                 <div id="voyager-notifications"></div>
 
