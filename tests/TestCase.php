@@ -80,9 +80,12 @@ class TestCase extends OrchestraTestCase
 
         // Setup Voyager configuration
         $app['config']->set('voyager.user.namespace', User::class);
+        // Force correct namespace — overrides any stale testbench-published config
+        $app['config']->set('voyager.controllers.namespace', 'YellowThree\\Voyager\\Http\\Controllers');
 
         // Setup Authentication configuration
         $app['config']->set('auth.providers.users.model', User::class);
+
     }
 
     protected function install()

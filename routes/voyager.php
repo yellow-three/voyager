@@ -129,6 +129,24 @@ Route::group(['as' => 'voyager.'], function () {
             Route::post('/', ['uses' => $namespacePrefix.'VoyagerCompassController@index',  'as' => 'post']);
         });
 
+        // Activity Log API Routes (v3 — for external integrations)
+        Route::group([
+            'as'     => 'activity-log.',
+            'prefix' => 'api/activity-log',
+        ], function () use ($namespacePrefix) {
+            Route::get('/', ['uses' => $namespacePrefix.'ActivityLogController@index', 'as' => 'index']);
+            Route::get('{id}', ['uses' => $namespacePrefix.'ActivityLogController@show',  'as' => 'show']);
+        });
+
+        // Upgrade API Routes (v3 — for upgrade wizard)
+        Route::group([
+            'as'     => 'upgrade.',
+            'prefix' => 'api/upgrade',
+        ], function () use ($namespacePrefix) {
+            Route::get('status', ['uses' => $namespacePrefix.'UpgradeController@status', 'as' => 'status']);
+            Route::post('run',   ['uses' => $namespacePrefix.'UpgradeController@run',    'as' => 'run']);
+        });
+
         event(new RoutingAdminAfter());
     });
 
