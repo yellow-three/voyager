@@ -1308,22 +1308,22 @@ Alpine.data('voyagerCode',     initCodeMirror)
 Alpine.start()
 ```
 
-### Aşama 5 — Core Views → Livewire + Tailwind
+### Aşama 5 — Core Views → Livewire + Tailwind [x] YAPILDI
 
 ```
-5a. Layout & partials (admin.blade.php, auth.blade.php, navbar, sidebar, footer)
-5b. BREAD Table MFC (bread-table) — dinamik kolonlar, sorting, pagination, bulk actions
-5c. BREAD Form MFC (bread-form) + 27 FormField Blade partial
-5d. BREAD Read SFC + BREAD Order SFC
-5e. Media Manager MFC (Dropzone entegrasyonu)
-5f. Dashboard MFC (widget sistemi, plugin widget'ları)
-5g. Settings Manager MFC
-5h. Database Manager MFC (eski 5 Vue SFC burada çözülür)
-5i. Login, Profile, Admin Menu SFC'leri
-5j. Role/User list+form SFC'leri, Compass SFC
-5k. Activity Log MFC + Cache Manager SFC + Maintenance Mode SFC
-5l. Queue Manager MFC + Impersonation SFC
-5m. Upgrade Wizard MFC
+5a. Layout & partials (admin.blade.php, auth.blade.php, navbar, sidebar, footer) [x] YAPILDI
+5b. BREAD Table MFC (bread-table) — dinamik kolonlar, sorting, pagination, bulk actions [x] YAPILDI
+5c. BREAD Form MFC (bread-form) + 27 FormField Blade partial [x] YAPILDI
+5d. BREAD Read SFC + BREAD Order SFC [x] YAPILDI
+5e. Media Manager MFC (Dropzone entegrasyonu) [x] YAPILDI
+5f. Dashboard MFC (widget sistemi, plugin widget'ları) [x] YAPILDI
+5g. Settings Manager MFC [x] YAPILDI
+5h. Database Manager MFC (eski 5 Vue SFC burada çözülür) [x] YAPILDI
+5i. Login, Profile, Admin Menu SFC'leri [x] YAPILDI
+5j. Role/User list+form SFC'leri, Compass SFC [x] YAPILDI
+5k. Activity Log MFC + Cache Manager SFC + Maintenance Mode SFC [x] YAPILDI
+5l. Queue Manager MFC + Impersonation SFC [x] YAPILDI
+5m. Upgrade Wizard MFC [x] YAPILDI
 ```
 
 ### Aşama 6 — Plugin ve Tema Sistemi
