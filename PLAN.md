@@ -1326,17 +1326,17 @@ Alpine.start()
 5m. Upgrade Wizard MFC [x] YAPILDI
 ```
 
-### Aşama 6 — Plugin ve Tema Sistemi
+### Aşama 6 — Plugin ve Tema Sistemi [x] YAPILDI
 
 ```
-6a. BasePlugin abstract + 6 contract interface
-6b. PluginManager (register, boot, getFormFields, getAuthPlugin, vb.)
-6c. VoyagerCorePlugin (27 field, menü items, widget'lar)
-6d. ThemeManager + Theme interface
-6e. Plugins Manager MFC + Themes Manager MFC
-6f. DB migrations: plugins, themes tabloları
-6g. ModelRegistry (plugin modellerini core'a tanıtma)
-6h. voyager:make:plugin CLI generator
+6a. BasePlugin abstract + 6 contract interface [x] YAPILDI
+6b. PluginManager (register, boot, getFormFields, getAuthPlugin, vb.) [x] YAPILDI
+6c. VoyagerCorePlugin (27 field, menü items, widget'lar) [x] YAPILDI
+6d. ThemeManager + Theme interface [x] YAPILDI
+6e. Plugins Manager MFC + Themes Manager MFC [x] YAPILDI
+6f. DB migrations: plugins, themes tabloları [x] YAPILDI
+6g. ModelRegistry (plugin modellerini core'a tanıtma) [x] YAPILDI
+6h. voyager:make:plugin CLI generator [x] YAPILDI
 ```
 
 ### Aşama 7 — BreadManager Tam Implementasyonu
