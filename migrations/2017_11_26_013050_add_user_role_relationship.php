@@ -14,12 +14,25 @@ class AddUserRoleRelationship extends Migration
      */
     public function up()
     {
-        // First, set any NULL role_id to the default admin role (id: 1)
-        // This prevents data truncation errors when adding NOT NULL constraint
+        // Ensure there is at least one role before adding the foreign key constraint.
+        // Seeders run after migrations, so the roles table may be empty at this point.
+        $defaultRoleId = DB::table('roles')->value('id');
+
+        if (! $defaultRoleId) {
+            $defaultRoleId = DB::table('roles')->insertGetId([
+                'name'         => 'admin',
+                'display_name' => 'Administrator',
+                'created_at'   => now(),
+                'updated_at'   => now(),
+            ]);
+        }
+
+        // Set any NULL role_id to the default role to prevent data truncation
+        // errors when adding the NOT NULL constraint.
         if (Schema::hasTable('users')) {
             DB::table('users')
                 ->whereNull('role_id')
-                ->update(['role_id' => 1]);
+                ->update(['role_id' => $defaultRoleId]);
         }
 
         Schema::table('users', function (Blueprint $table) {
