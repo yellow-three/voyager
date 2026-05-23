@@ -1,11 +1,11 @@
 <?php
 
-namespace TCG\Voyager\Http\Controllers;
+namespace YellowThree\Voyager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use TCG\Voyager\Facades\Voyager;
+use YellowThree\Voyager\Facades\Voyager;
 
 class VoyagerSettingsController extends Controller
 {

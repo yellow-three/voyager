@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Listeners;
+namespace YellowThree\Voyager\Listeners;
 
-use TCG\Voyager\Events\BreadDeleted;
-use TCG\Voyager\Facades\Voyager;
+use YellowThree\Voyager\Events\BreadDeleted;
+use YellowThree\Voyager\Facades\Voyager;
 
 class DeleteBreadMenuItem
 {

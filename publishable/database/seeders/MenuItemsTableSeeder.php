@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use TCG\Voyager\Models\Menu;
-use TCG\Voyager\Models\MenuItem;
+use YellowThree\Voyager\Models\Menu;
+use YellowThree\Voyager\Models\MenuItem;
 
 class MenuItemsTableSeeder extends Seeder
 {

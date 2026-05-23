@@ -1,10 +1,10 @@
 <?php
 
-namespace TCG\Voyager\Database\Types\Mysql;
+namespace YellowThree\Voyager\Database\Types\Mysql;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Illuminate\Support\Facades\DB;
-use TCG\Voyager\Database\Types\Type;
+use YellowThree\Voyager\Database\Types\Type;
 
 class EnumType extends Type
 {

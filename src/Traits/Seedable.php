@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Traits;
+namespace YellowThree\Voyager\Traits;
 
 trait Seedable
 {

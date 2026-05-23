@@ -142,11 +142,8 @@ Read more about multilanguage [here](../core-concepts/multilanguage.md).
             'icon_class' => 'voyager-power',
         ],
     ],
-    'widgets' => [
-        'TCG\\Voyager\\Widgets\\UserDimmer',
-        'TCG\\Voyager\\Widgets\\PostDimmer',
-        'TCG\\Voyager\\Widgets\\PageDimmer',
-    ],
+        'widgets' => [],
+
 ],
 ```
 
@@ -156,7 +153,7 @@ In the dashboard config you can add **navbar\_items**, make the **data\_tables**
 
 **data\_tables** If you set 'responsive' to true the datatables will be responsive.
 
-**widgets** Here you can manage the widgets that live on your dashboard. You can take a look at an example widget class by viewing the current widgets inside of `tcg/voyager/src/Widgets`.
+**widgets** Here you can manage the widgets that live on your dashboard.
 
 ## Primary color
 

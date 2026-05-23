@@ -1,13 +1,13 @@
 <?php
 
-namespace TCG\Voyager\Tests\Database\Factories;
+namespace YellowThree\Voyager\Tests\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
  
 class UserFactory extends Factory
 {
-    protected $model = \TCG\Voyager\Models\User::class;
+    protected $model = \YellowThree\Voyager\Models\User::class;
 
     public function definition()
     {

@@ -1,12 +1,12 @@
 <?php
 
-namespace TCG\Voyager\Tests\Database\Factories;
+namespace YellowThree\Voyager\Tests\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
  
 class RoleFactory extends Factory
 {
-    protected $model = \TCG\Voyager\Models\Role::class;
+    protected $model = \YellowThree\Voyager\Models\Role::class;
 
     public function definition()
     {

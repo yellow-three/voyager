@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use TCG\Voyager\Models\Setting;
+use YellowThree\Voyager\Models\Setting;
 
 class SettingsTableSeeder extends Seeder
 {

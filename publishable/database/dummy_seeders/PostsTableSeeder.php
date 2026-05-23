@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use TCG\Voyager\Models\DataRow;
-use TCG\Voyager\Models\DataType;
-use TCG\Voyager\Models\Menu;
-use TCG\Voyager\Models\MenuItem;
-use TCG\Voyager\Models\Permission;
-use TCG\Voyager\Models\Post;
+use YellowThree\Voyager\Models\DataRow;
+use YellowThree\Voyager\Models\DataType;
+use YellowThree\Voyager\Models\Menu;
+use YellowThree\Voyager\Models\MenuItem;
+use YellowThree\Voyager\Models\Permission;
+use YellowThree\Voyager\Models\Post;
 
 class PostsTableSeeder extends Seeder
 {

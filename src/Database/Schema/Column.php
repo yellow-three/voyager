@@ -1,50 +1,72 @@
 <?php
 
-namespace TCG\Voyager\Database\Schema;
+namespace YellowThree\Voyager\Database\Schema;
 
-use Doctrine\DBAL\Schema\Column as DoctrineColumn;
-use Doctrine\DBAL\Types\Type as DoctrineType;
-use TCG\Voyager\Database\Types\Type;
+use YellowThree\Voyager\Database\Types\Type;
 
-abstract class Column
+class Column
 {
+    public $name;
+    public $type;
+    public $options;
+    public $null;
+    public $extra;
+    public $composite = false;
+    public $oldName;
+
+    public function __construct($name, $type, $options = [], $null = true, $extra = '', $composite = false, $oldName = null)
+    {
+        $this->name = $name;
+        $this->type = $type;
+        $this->options = $options;
+        $this->null = $null;
+        $this->extra = $extra;
+        $this->composite = $composite;
+        $this->oldName = $oldName;
+    }
+
     public static function make(array $column, string $tableName = null)
     {
         $name = Identifier::validate($column['name'], 'Column');
         $type = $column['type'];
-        $type = ($type instanceof DoctrineType) ? $type : DoctrineType::getType(trim($type['name']));
-        $type->tableName = $tableName;
+        
+        // If type is a string, convert it to Voyager's Type object
+        if (is_string($type)) {
+            $type = Type::make($type, $tableName);
+        }
 
         $options = array_diff_key($column, array_flip(['name', 'composite', 'oldName', 'null', 'extra', 'type', 'charset', 'collation']));
 
-        return new DoctrineColumn($name, $type, $options);
+        return new self(
+            $name,
+            $type,
+            $options,
+            $column['null'] ?? true,
+            $column['extra'] ?? '',
+            $column['composite'] ?? false,
+            $column['oldName'] ?? null
+        );
     }
 
     /**
      * @return array
      */
-    public static function toArray(DoctrineColumn $column)
+    public static function toArray(Column $column)
     {
-        $columnArr = $column->toArray();
-        $columnArr['type'] = Type::toArray($columnArr['type']);
-        $columnArr['oldName'] = $columnArr['name'];
-        $columnArr['null'] = $columnArr['notnull'] ? 'NO' : 'YES';
-        $columnArr['extra'] = static::getExtra($column);
-        $columnArr['composite'] = false;
-
-        return $columnArr;
+        return [
+            'name'           => $column->name,
+            'oldName'        => $column->oldName ?? $column->name,
+            'type'           => Type::toArray($column->type),
+            'null'           => $column->null ? 'YES' : 'NO',
+            'extra'          => $column->extra,
+            'composite'      => $column->composite,
+            'charset'        => $column->options['charset'] ?? null,
+            'collation'      => $column->options['collation'] ?? null,
+        ];
     }
 
-    /**
-     * @return string
-     */
-    protected static function getExtra(DoctrineColumn $column)
+    public function getName()
     {
-        $extra = '';
-
-        $extra .= $column->getAutoincrement() ? 'auto_increment' : '';
-        // todo: Add Extra stuff like mysql 'onUpdate' etc...
-
-        return $extra;
+        return $this->name;
     }
 }

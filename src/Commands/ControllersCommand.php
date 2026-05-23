@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Commands;
+namespace YellowThree\Voyager\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;

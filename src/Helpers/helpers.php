@@ -3,14 +3,14 @@
 if (!function_exists('setting')) {
     function setting($key, $default = null)
     {
-        return TCG\Voyager\Facades\Voyager::setting($key, $default);
+        return YellowThree\Voyager\Facades\Voyager::setting($key, $default);
     }
 }
 
 if (!function_exists('menu')) {
     function menu($menuName, $type = null, array $options = [])
     {
-        return TCG\Voyager\Facades\Voyager::model('Menu')->display($menuName, $type, $options);
+        return YellowThree\Voyager\Facades\Voyager::model('Menu')->display($menuName, $type, $options);
     }
 }
 

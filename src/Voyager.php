@@ -1,8 +1,7 @@
 <?php
 
-namespace TCG\Voyager;
+namespace YellowThree\Voyager;
 
-use Arrilot\Widgets\Facade as Widget;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
@@ -10,26 +9,26 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use TCG\Voyager\Actions\DeleteAction;
-use TCG\Voyager\Actions\EditAction;
-use TCG\Voyager\Actions\RestoreAction;
-use TCG\Voyager\Actions\ViewAction;
-use TCG\Voyager\Events\AlertsCollection;
-use TCG\Voyager\FormFields\After\HandlerInterface as AfterHandlerInterface;
-use TCG\Voyager\FormFields\HandlerInterface;
-use TCG\Voyager\Models\Category;
-use TCG\Voyager\Models\DataRow;
-use TCG\Voyager\Models\DataType;
-use TCG\Voyager\Models\Menu;
-use TCG\Voyager\Models\MenuItem;
-use TCG\Voyager\Models\Page;
-use TCG\Voyager\Models\Permission;
-use TCG\Voyager\Models\Post;
-use TCG\Voyager\Models\Role;
-use TCG\Voyager\Models\Setting;
-use TCG\Voyager\Models\Translation;
-use TCG\Voyager\Models\User;
-use TCG\Voyager\Traits\Translatable;
+use YellowThree\Voyager\Actions\DeleteAction;
+use YellowThree\Voyager\Actions\EditAction;
+use YellowThree\Voyager\Actions\RestoreAction;
+use YellowThree\Voyager\Actions\ViewAction;
+use YellowThree\Voyager\Events\AlertsCollection;
+use YellowThree\Voyager\FormFields\After\HandlerInterface as AfterHandlerInterface;
+use YellowThree\Voyager\FormFields\HandlerInterface;
+use YellowThree\Voyager\Models\Category;
+use YellowThree\Voyager\Models\DataRow;
+use YellowThree\Voyager\Models\DataType;
+use YellowThree\Voyager\Models\Menu;
+use YellowThree\Voyager\Models\MenuItem;
+use YellowThree\Voyager\Models\Page;
+use YellowThree\Voyager\Models\Permission;
+use YellowThree\Voyager\Models\Post;
+use YellowThree\Voyager\Models\Role;
+use YellowThree\Voyager\Models\Setting;
+use YellowThree\Voyager\Models\Translation;
+use YellowThree\Voyager\Models\User;
+use YellowThree\Voyager\Traits\Translatable;
 
 class Voyager
 {
@@ -186,72 +185,10 @@ class Voyager
         return $this->actions;
     }
 
-    /**
-     * Get a collection of dashboard widgets.
-     * Each of our widget groups contain a max of three widgets.
-     * After that, we will switch to a new widget group.
-     *
-     * @return array - Array consisting of \Arrilot\Widget\WidgetGroup objects
-     */
-    public function dimmers()
-    {
-        $widgetClasses = config('voyager.dashboard.widgets');
-        $dimmerGroups = [];
-        $dimmerCount = 0;
-        $dimmers = Widget::group("voyager::dimmers-{$dimmerCount}");
-
-        foreach ($widgetClasses as $widgetClass) {
-            $widget = app($widgetClass);
-
-            if ($widget->shouldBeDisplayed()) {
-
-                // Every third dimmer, we consider out WidgetGroup filled.
-                // We switch that out with another WidgetGroup.
-                if ($dimmerCount % 3 === 0 && $dimmerCount !== 0) {
-                    $dimmerGroups[] = $dimmers;
-                    $dimmerGroupTag = ceil($dimmerCount / 3);
-                    $dimmers = Widget::group("voyager::dimmers-{$dimmerGroupTag}");
-                }
-
-                $dimmers->addWidget($widgetClass);
-                $dimmerCount++;
-            }
-        }
-
-        $dimmerGroups[] = $dimmers;
-
-        return $dimmerGroups;
-    }
-
     public function setting($key, $default = null)
     {
-        $globalCache = config('voyager.settings.cache', false);
-
-        if ($globalCache && Cache::tags('settings')->has($key)) {
-            return Cache::tags('settings')->get($key);
-        }
-
-        if ($this->setting_cache === null) {
-            if ($globalCache) {
-                // A key is requested that is not in the cache
-                // this is a good opportunity to update all keys
-                // albeit not strictly necessary
-                Cache::tags('settings')->flush();
-            }
-
-            foreach (self::model('Setting')->orderBy('order')->get() as $setting) {
-                $keys = explode('.', $setting->key);
-                @$this->setting_cache[$keys[0]][$keys[1]] = $setting->value;
-
-                if ($globalCache) {
-                    Cache::tags('settings')->forever($setting->key, $setting->value);
-                }
-            }
-        }
-
         $parts = explode('.', $key);
-
-        if (count($parts) == 2) {
+        if (count($parts) > 1) {
             return @$this->setting_cache[$parts[0]][$parts[1]] ?: $default;
         } else {
             return @$this->setting_cache[$parts[0]] ?: $default;

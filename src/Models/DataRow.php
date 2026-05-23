@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Models;
+namespace YellowThree\Voyager\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use TCG\Voyager\Traits\Translatable;
+use YellowThree\Voyager\Traits\Translatable;
 
 class DataRow extends Model
 {

@@ -1,26 +1,26 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace YellowThree\Voyager\Tests;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use TCG\Voyager\Events\BreadAdded;
-use TCG\Voyager\Events\BreadDataAdded;
-use TCG\Voyager\Events\BreadDataDeleted;
-use TCG\Voyager\Events\BreadDataUpdated;
-use TCG\Voyager\Events\BreadDeleted;
-use TCG\Voyager\Events\BreadImagesDeleted;
-use TCG\Voyager\Events\BreadUpdated;
-use TCG\Voyager\Events\FileDeleted;
-use TCG\Voyager\Events\MediaFileAdded;
-use TCG\Voyager\Events\TableAdded;
-use TCG\Voyager\Events\TableDeleted;
-use TCG\Voyager\Events\TableUpdated;
-use TCG\Voyager\Models\DataType;
-use TCG\Voyager\Models\Page;
+use YellowThree\Voyager\Events\BreadAdded;
+use YellowThree\Voyager\Events\BreadDataAdded;
+use YellowThree\Voyager\Events\BreadDataDeleted;
+use YellowThree\Voyager\Events\BreadDataUpdated;
+use YellowThree\Voyager\Events\BreadDeleted;
+use YellowThree\Voyager\Events\BreadImagesDeleted;
+use YellowThree\Voyager\Events\BreadUpdated;
+use YellowThree\Voyager\Events\FileDeleted;
+use YellowThree\Voyager\Events\MediaFileAdded;
+use YellowThree\Voyager\Events\TableAdded;
+use YellowThree\Voyager\Events\TableDeleted;
+use YellowThree\Voyager\Events\TableUpdated;
+use YellowThree\Voyager\Models\DataType;
+use YellowThree\Voyager\Models\Page;
 
 class EventTest extends TestCase
 {

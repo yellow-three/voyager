@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use TCG\Voyager\Models\DataType;
+use YellowThree\Voyager\Models\DataType;
 
 class DataTypesTableSeeder extends Seeder
 {

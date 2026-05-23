@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\FormFields;
+namespace YellowThree\Voyager\FormFields;
 
 class HiddenHandler extends AbstractHandler
 {

@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use TCG\Voyager\Models\Permission;
-use TCG\Voyager\Models\Role;
+use YellowThree\Voyager\Models\Permission;
+use YellowThree\Voyager\Models\Role;
 
 class PermissionRoleTableSeeder extends Seeder
 {

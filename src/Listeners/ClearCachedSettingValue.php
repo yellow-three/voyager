@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Listeners;
+namespace YellowThree\Voyager\Listeners;
 
 use Cache;
-use TCG\Voyager\Events\SettingUpdated;
+use YellowThree\Voyager\Events\SettingUpdated;
 
 class ClearCachedSettingValue
 {

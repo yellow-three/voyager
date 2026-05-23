@@ -1,14 +1,14 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace YellowThree\Voyager\Tests;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
-use TCG\Voyager\Models\Category;
-use TCG\Voyager\Models\DataType;
-use TCG\Voyager\Models\Permission;
+use YellowThree\Voyager\Models\Category;
+use YellowThree\Voyager\Models\DataType;
+use YellowThree\Voyager\Models\Permission;
 
 class FormfieldsTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Contracts;
+namespace YellowThree\Voyager\Contracts;
 
 interface User
 {

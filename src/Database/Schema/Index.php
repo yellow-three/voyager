@@ -1,14 +1,33 @@
 <?php
 
-namespace TCG\Voyager\Database\Schema;
+namespace YellowThree\Voyager\Database\Schema;
 
-use Doctrine\DBAL\Schema\Index as DoctrineIndex;
-
-abstract class Index
+class Index
 {
     public const PRIMARY = 'PRIMARY';
     public const UNIQUE = 'UNIQUE';
     public const INDEX = 'INDEX';
+
+    public $name;
+    public $columns;
+    public $type;
+    public $isPrimary;
+    public $isUnique;
+    public $isComposite;
+    public $flags;
+    public $options;
+
+    public function __construct($name, $columns, $type, $isPrimary, $isUnique, $isComposite, $flags = [], $options = [])
+    {
+        $this->name = $name;
+        $this->columns = $columns;
+        $this->type = $type;
+        $this->isPrimary = $isPrimary;
+        $this->isUnique = $isUnique;
+        $this->isComposite = $isComposite;
+        $this->flags = $flags;
+        $this->options = $options;
+    }
 
     public static function make(array $index)
     {
@@ -47,40 +66,32 @@ abstract class Index
 
         $flags = $index['flags'] ?? [];
         $options = $index['options'] ?? [];
+        $isComposite = count($columns) > 1;
 
-        return new DoctrineIndex($name, $columns, $isUnique, $isPrimary, $flags, $options);
+        return new self($name, $columns, $type, $isPrimary, $isUnique, $isComposite, $flags, $options);
     }
 
     /**
      * @return array
      */
-    public static function toArray(DoctrineIndex $index)
+    public static function toArray(Index $index)
     {
-        $name = $index->getName();
-        $columns = $index->getColumns();
-
         return [
-            'name'        => $name,
-            'oldName'     => $name,
-            'columns'     => $columns,
-            'type'        => static::getType($index),
-            'isPrimary'   => $index->isPrimary(),
-            'isUnique'    => $index->isUnique(),
-            'isComposite' => count($columns) > 1,
-            'flags'       => $index->getFlags(),
-            'options'     => $index->getOptions(),
+            'name'        => $index->name,
+            'oldName'     => $index->name,
+            'columns'     => $index->columns,
+            'type'        => $index->type,
+            'isPrimary'   => $index->isPrimary,
+            'isUnique'    => $index->isUnique,
+            'isComposite' => $index->isComposite,
+            'flags'       => $index->flags,
+            'options'     => $index->options,
         ];
     }
 
-    public static function getType(DoctrineIndex $index)
+    public static function getType(Index $index)
     {
-        if ($index->isPrimary()) {
-            return static::PRIMARY;
-        } elseif ($index->isUnique()) {
-            return static::UNIQUE;
-        } else {
-            return static::INDEX;
-        }
+        return $index->type;
     }
 
     /**
@@ -108,5 +119,35 @@ abstract class Index
             static::UNIQUE,
             static::INDEX,
         ];
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
+    }
+
+    public function isPrimary()
+    {
+        return $this->isPrimary;
+    }
+
+    public function isUnique()
+    {
+        return $this->isUnique;
+    }
+
+    public function getFlags()
+    {
+        return $this->flags;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager;
+namespace YellowThree\Voyager;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,19 +16,19 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageServiceProvider;
-use TCG\Voyager\Events\FormFieldsRegistered;
-use TCG\Voyager\Facades\Voyager as VoyagerFacade;
-use TCG\Voyager\FormFields\After\DescriptionHandler;
-use TCG\Voyager\Http\Middleware\VoyagerAdminMiddleware;
-use TCG\Voyager\Models\MenuItem;
-use TCG\Voyager\Models\Setting;
-use TCG\Voyager\Policies\BasePolicy;
-use TCG\Voyager\Policies\MenuItemPolicy;
-use TCG\Voyager\Policies\SettingPolicy;
-use TCG\Voyager\Providers\VoyagerDummyServiceProvider;
-use TCG\Voyager\Providers\VoyagerEventServiceProvider;
-use TCG\Voyager\Seed;
-use TCG\Voyager\Translator\Collection as TranslatorCollection;
+use YellowThree\Voyager\Events\FormFieldsRegistered;
+use YellowThree\Voyager\Facades\Voyager as VoyagerFacade;
+use YellowThree\Voyager\FormFields\After\DescriptionHandler;
+use YellowThree\Voyager\Http\Middleware\VoyagerAdminMiddleware;
+use YellowThree\Voyager\Models\MenuItem;
+use YellowThree\Voyager\Models\Setting;
+use YellowThree\Voyager\Policies\BasePolicy;
+use YellowThree\Voyager\Policies\MenuItemPolicy;
+use YellowThree\Voyager\Policies\SettingPolicy;
+use YellowThree\Voyager\Providers\VoyagerDummyServiceProvider;
+use YellowThree\Voyager\Providers\VoyagerEventServiceProvider;
+use YellowThree\Voyager\Seed;
+use YellowThree\Voyager\Translator\Collection as TranslatorCollection;
 
 class VoyagerServiceProvider extends ServiceProvider
 {
@@ -56,7 +56,7 @@ class VoyagerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(VoyagerEventServiceProvider::class);
-        $this->app->register(ImageServiceProvider::class);
+        // $this->app->register(ImageServiceProvider::class);
         $this->app->register(VoyagerDummyServiceProvider::class);
 
         $loader = AliasLoader::getInstance();
@@ -219,7 +219,7 @@ class VoyagerServiceProvider extends ServiceProvider
         $components = ['title', 'text', 'button'];
 
         foreach ($components as $component) {
-            $class = 'TCG\\Voyager\\Alert\\Components\\'.ucfirst(Str::camel($component)).'Component';
+            $class = 'YellowThree\\Voyager\\Alert\\Components\\'.ucfirst(Str::camel($component)).'Component';
 
             $this->app->bind("voyager.alert.components.{$component}", $class);
         }
@@ -337,7 +337,7 @@ class VoyagerServiceProvider extends ServiceProvider
         foreach ($formFields as $formField) {
             $class = Str::studly("{$formField}_handler");
 
-            VoyagerFacade::addFormField("TCG\\Voyager\\FormFields\\{$class}");
+            VoyagerFacade::addFormField("YellowThree\\Voyager\\FormFields\\{$class}");
         }
 
         VoyagerFacade::addAfterFormField(DescriptionHandler::class);

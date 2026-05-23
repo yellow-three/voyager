@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Actions;
+namespace YellowThree\Voyager\Actions;
 
 class DeleteAction extends AbstractAction
 {

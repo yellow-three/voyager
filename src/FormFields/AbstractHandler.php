@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\FormFields;
+namespace YellowThree\Voyager\FormFields;
 
 use Illuminate\Support\Str;
-use TCG\Voyager\Traits\Renderable;
+use YellowThree\Voyager\Traits\Renderable;
 
 abstract class AbstractHandler implements HandlerInterface
 {
