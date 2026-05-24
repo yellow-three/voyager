@@ -81,16 +81,38 @@ class VoyagerController extends Controller
 
     public function assets(Request $request)
     {
+        $path = urldecode($request->path);
+        $baseDir = dirname(__DIR__, 3);
+
+        // Try Vite build output first
+        $manifestPath = $baseDir.'/publishable/assets/build/.vite/manifest.json';
+        if (File::exists($manifestPath)) {
+            $manifest = json_decode(File::get($manifestPath), true);
+            foreach ($manifest as $entry => $info) {
+                // Match the requested path against manifest entries
+                // e.g., 'js/app.js' matches entry 'resources/js/app.js' → outputs 'app2.js'
+                if (Str::endsWith($entry, $path) && isset($info['file'])) {
+                    $buildPath = $baseDir.'/publishable/assets/build/'.$info['file'];
+                    if (File::exists($buildPath)) {
+                        $mime = Str::endsWith($buildPath, '.js') ? 'text/javascript' : (Str::endsWith($buildPath, '.css') ? 'text/css' : File::mimeType($buildPath));
+                        $response = response(File::get($buildPath), 200, ['Content-Type' => $mime]);
+                        $response->setSharedMaxAge(31536000);
+                        $response->setMaxAge(31536000);
+                        $response->setExpires(new \DateTime('+1 year'));
+                        return $response;
+                    }
+                }
+            }
+        }
+
+        // Fall back to legacy assets directory
         try {
             if (class_exists(\League\Flysystem\Util::class)) {
-                // Flysystem 1.x
-                $path = dirname(__DIR__, 3).'/publishable/assets/'.\League\Flysystem\Util::normalizeRelativePath(urldecode($request->path));
+                $path = $baseDir.'/publishable/assets/'.\League\Flysystem\Util::normalizeRelativePath($path);
             } elseif (class_exists(\League\Flysystem\WhitespacePathNormalizer::class)) {
-                // Flysystem >= 2.x
                 $normalizer = new \League\Flysystem\WhitespacePathNormalizer();
-                $path = dirname(__DIR__, 3).'/publishable/assets/'. $normalizer->normalizePath(urldecode($request->path));
+                $path = $baseDir.'/publishable/assets/'. $normalizer->normalizePath($path);
             }
-            
         } catch (\LogicException $e) {
             abort(404);
         }
