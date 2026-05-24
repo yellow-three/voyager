@@ -39,7 +39,9 @@ $(document).ready(function () {
         fadedOverlay = $('.fadetoblack'),
         hamburger = $('.hamburger');
 
-    new PerfectScrollbar('.side-menu');
+    if (document.querySelector('.side-menu')) {
+        new PerfectScrollbar('.side-menu');
+    }
 
     $('#voyager-loader').fadeOut();
 
