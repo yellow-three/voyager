@@ -1436,7 +1436,7 @@ strategy:
 14k. Dependabot: .github/dependabot.yml (composer + npm, weekly)     ✅
 ```
 
-### Aşama 15 — Dokümantasyon ve Repo Kurulum ⚠️ KISMİ (15f, 15f manuel)
+### Aşama 15 — Dokümantasyon ve Repo Kurulum ✅ YAPILDI (15f Packagist manuel)
 
 ```
 15a. README — fork bildirimi + kurulum + quick start                  ✅
@@ -1445,7 +1445,7 @@ strategy:
 15d. docs/plugin-development.md — plugin yazma kılavuzu               ✅
 15e. docs/bread-json.md — JSON BREAD formatı referansı                ✅
 15f. Packagist kaydı (v3-alpha olarak)                                ❌ EKLENECEK
-15g. GitHub release: v3.0.0-alpha                                     ❌ EKLENECEK
+15g. GitHub release: v3.0.0-alpha                                     ✅
 ```
 
 ---
