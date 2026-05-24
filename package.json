@@ -4,24 +4,28 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/vite": "^4.0",
     "laravel-vite-plugin": "^1.0",
+    "playwright": "^1.60.0",
     "vite": "^6.0"
   },
   "dependencies": {
+    "@codemirror/lang-css": "^6.0",
+    "@codemirror/lang-html": "^6.0",
+    "@codemirror/lang-javascript": "^6.0",
+    "@codemirror/lang-markdown": "^6.0",
+    "@codemirror/lang-php": "^6.0",
+    "@codemirror/theme-one-dark": "^6.0",
     "alpinejs": "^3.13",
+    "codemirror": "^6.0",
     "cropperjs": "^1.6",
     "dropzone": "^5.9",
-    "tinymce": "^7.0",
-    "codemirror": "^6.0",
-    "@codemirror/lang-php": "^6.0",
-    "@codemirror/lang-javascript": "^6.0",
-    "@codemirror/lang-html": "^6.0",
-    "@codemirror/lang-css": "^6.0",
-    "@codemirror/lang-markdown": "^6.0",
-    "@codemirror/theme-one-dark": "^6.0"
+    "tinymce": "^7.0"
   }
 }

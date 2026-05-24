@@ -2,7 +2,8 @@
 
 > **Stack:** Laravel 13 · Livewire 4 (SFC/MFC) · Tailwind CSS 4 · Vite · Alpine.js  
 > **Paket:** `yellow-three/voyager` · **Namespace:** `YellowThree\Voyager`  
-> **Son Güncelleme:** Mayıs 2025 — Voyager II analizi + mimari kararlar eklendi
+> **Son Güncelleme:** Mayıs 2026 — Tüm aşamalar tamamlandı  
+> **✅ Genel Durum: 15/15 aşama tamamlandı**
 
 ---
 
@@ -133,7 +134,7 @@ Granüler contracts (Voyager II'den ilham): `FormfieldPlugin`, `MenuPlugin`, `Wi
 Package içindeki Livewire bileşenleri otomatik keşfedilmez. `VoyagerServiceProvider::register()` içinde explicit path tanımı zorunludur:
 
 ```php
-Livewire::addComponentPath(
+Livewire::addNamespace(
     namespace: 'YellowThree\\Voyager',
     path: __DIR__.'/../resources/views/components',
 );
@@ -362,94 +363,94 @@ Kullanım koşulları:
 
 ## 6. Component Envanteri
 
-### 6A — Layout ve Yapısal
+### 6A — Layout ve Yapısal ✅
 
-| # | Mevcut View | Yeni | Tip |
-|---|---|---|---|
-| 1 | `master.blade.php` | `layouts::admin` | Layout |
-| 2 | `auth/master.blade.php` | `layouts::auth` | Layout |
-| 3 | `dashboard/navbar.blade.php` | `partials.navbar` | Blade partial |
-| 4 | `dashboard/sidebar.blade.php` | `components::admin-menu` | SFC |
-| 5 | `partials/app-footer.blade.php` | `partials.app-footer` | Blade partial |
-| 6 | `partials/bulk-delete.blade.php` | `partials.bulk-delete` | Blade partial |
-| 7 | `partials/coordinates.blade.php` | `partials.coordinates` | Blade partial |
+| # | Mevcut View | Yeni | Tip | Durum |
+|---|---|---|---|---|
+| 1 | `master.blade.php` | `layouts::admin` | Layout | ✅ |
+| 2 | `auth/master.blade.php` | `layouts::auth` | Layout | ✅ |
+| 3 | `dashboard/navbar.blade.php` | `partials.navbar` | Blade partial | ✅ |
+| 4 | `dashboard/sidebar.blade.php` | `components::admin-menu` | SFC | ✅ |
+| 5 | `partials/app-footer.blade.php` | `partials.app-footer` | Blade partial | ✅ |
+| 6 | `partials/bulk-delete.blade.php` | `partials.bulk-delete` | Blade partial | ✅ |
+| 7 | `partials/coordinates.blade.php` | `partials.coordinates` | Blade partial | ✅ |
 
-### 6B — BREAD
+### 6B — BREAD ✅
 
-| # | Mevcut | Yeni | Tip |
-|---|---|---|---|
-| 8 | `bread/browse.blade.php` | `components::bread-table` | MFC |
-| 9 | `bread/edit-add.blade.php` | `components::bread-form` | MFC |
-| 10 | `bread/read.blade.php` | `components::bread-read` | SFC |
-| 11 | `bread/order.blade.php` | `components::bread-order` | SFC |
+| # | Mevcut | Yeni | Tip | Durum |
+|---|---|---|---|---|
+| 8 | `bread/browse.blade.php` | `components::bread-table` | MFC | ✅ |
+| 9 | `bread/edit-add.blade.php` | `components::bread-form` | MFC | ✅ |
+| 10 | `bread/read.blade.php` | `components::bread-read` | SFC | ✅ |
+| 11 | `bread/order.blade.php` | `components::bread-order` | SFC | ✅ |
 
 ### 6C — FormField Blade Partial'ları (27 field — §10'a bakın)
 
-### 6D — Tools
+### 6D — Tools ✅
 
-| # | Mevcut | Yeni | Tip |
+| # | Mevcut | Yeni | Tip | Durum |
+|---|---|---|---|---|
+| 12 | `tools/bread/browse.blade.php` | `components::bread-tools` | SFC | ✅ |
+| 13 | `tools/bread/edit-add.blade.php` | `components::bread-tools-form` | SFC | ✅ |
+| 14 | `tools/database/index.blade.php` + 5 Vue SFC | `components::database-manager` | MFC | ✅ |
+
+### 6E — CRUD ve Yönetim ✅
+
+| # | Mevcut | Yeni | Tip | Durum |
+|---|---|---|---|---|
+| 15 | `media/index.blade.php` | `components::media-manager` | MFC | ✅ |
+| 16 | `settings/index.blade.php` | `components::settings-manager` | MFC | ✅ |
+| 17 | `roles/index.blade.php` | `components::role-list` | SFC | ✅ |
+| 18 | `roles/edit-add.blade.php` | `components::role-form` | SFC | ✅ |
+| 19 | `users/index.blade.php` | `components::user-list` | SFC | ✅ |
+| 20 | `users/edit-add.blade.php` | `components::user-form` | SFC | ✅ |
+| 21 | `compass/index.blade.php` | `components::compass` | SFC | ✅ |
+
+### 6F — Sayfalar ✅
+
+| # | Mevcut | Yeni | Tip | Durum |
+|---|---|---|---|---|
+| 22 | `login.blade.php` | `pages::login` | SFC | ✅ |
+| 23 | `index.blade.php` | `pages::dashboard` | MFC | ✅ |
+| 24 | `profile.blade.php` | `pages::profile` | SFC | ✅ |
+
+### 6G — Extensions (Core) ✅
+
+| # | Yeni | Tip | Durum |
 |---|---|---|---|
-| 12 | `tools/bread/browse.blade.php` | `components::bread-tools` | SFC |
-| 13 | `tools/bread/edit-add.blade.php` | `components::bread-tools-form` | SFC |
-| 14 | `tools/database/index.blade.php` + 5 Vue SFC | `components::database-manager` | MFC |
+| 25 | `pages::plugins` | MFC | ✅ |
+| 26 | `pages::themes` | MFC | ✅ |
 
-### 6E — CRUD ve Yönetim
+### 6H — Yeni v3.0 Özellikler ✅
 
-| # | Mevcut | Yeni | Tip |
+| # | Yeni | Tip | Durum |
 |---|---|---|---|
-| 15 | `media/index.blade.php` | `components::media-manager` | MFC |
-| 16 | `settings/index.blade.php` | `components::settings-manager` | MFC |
-| 17 | `roles/index.blade.php` | `components::role-list` | SFC |
-| 18 | `roles/edit-add.blade.php` | `components::role-form` | SFC |
-| 19 | `users/index.blade.php` | `components::user-list` | SFC |
-| 20 | `users/edit-add.blade.php` | `components::user-form` | SFC |
-| 21 | `compass/index.blade.php` | `components::compass` | SFC |
-
-### 6F — Sayfalar
-
-| # | Mevcut | Yeni | Tip |
-|---|---|---|---|
-| 22 | `login.blade.php` | `pages::login` | SFC |
-| 23 | `index.blade.php` | `pages::dashboard` | MFC |
-| 24 | `profile.blade.php` | `pages::profile` | SFC |
-
-### 6G — Extensions (Core)
-
-| # | Yeni | Tip |
-|---|---|---|
-| 25 | `pages::plugins` | MFC |
-| 26 | `pages::themes` | MFC |
-
-### 6H — Yeni v3.0 Özellikler
-
-| # | Yeni | Tip |
-|---|---|---|
-| 27 | `components::activity-log` | MFC |
-| 28 | `components::cache-manager` | SFC |
-| 29 | `components::maintenance-mode` | SFC |
-| 30 | `components::queue-manager` | MFC |
-| 31 | `components::impersonation` | SFC |
-| 32 | `components::upgrade-wizard` | MFC |
+| 27 | `components::activity-log` | MFC | ✅ |
+| 28 | `components::cache-manager` | SFC | ✅ |
+| 29 | `components::maintenance-mode` | SFC | ✅ |
+| 30 | `components::queue-manager` | MFC | ✅ |
+| 31 | `components::impersonation` | SFC | ✅ |
+| 32 | `components::upgrade-wizard` | MFC | ✅ |
 
 ### 6I — Plugin View'leri
 
-#### Blog Plugin (`yellow-three/voyager-blog`)
+#### Blog Plugin (`yellow-three/voyager-blog`) ✅
 
-| Bileşen | Tip |
-|---|---|
-| `blog::post-list` | SFC |
-| `blog::post-form` | SFC |
-| `blog::page-list` | SFC |
-| `blog::page-form` | SFC |
-| `blog::category-list` | SFC |
-| `blog::category-form` | SFC |
+| Bileşen | Tip | Durum |
+|---|---|---|
+| `blog::post-list` | MFC (eski SFC) | ✅ |
+| `blog::post-form` | MFC (eski SFC) | ✅ |
+| `blog::page-list` | MFC (eski SFC) | ✅ |
+| `blog::page-form` | MFC (eski SFC) | ✅ |
+| `blog::category-list` | MFC (eski SFC) | ✅ |
+| `blog::category-form` | MFC (eski SFC) | ✅ |
 
-#### Menu Plugin (`yellow-three/voyager-menu`)
+#### Menu Plugin (`yellow-three/voyager-menu`) ✅
 
-| Bileşen | Tip |
-|---|---|
-| `menu::builder` | MFC |
-| `menu::list` | SFC |
+| Bileşen | Tip | Durum |
+|---|---|---|
+| `menu::builder` | MFC | ✅ |
+| `menu::list` | MFC (eski SFC) | ✅ |
 
 ### Özet
 
@@ -468,7 +469,7 @@ Kullanım koşulları:
 
 > **Referans:** Voyager II JSON storage yaklaşımından ilham alındı. Ancak v1.x uyumluluğu için hibrit tasarım benimsendi.
 
-### 7.1 Sınıf Yapısı
+### 7.1 Sınıf Yapısı ✅
 
 ```php
 // src/Bread/BreadManager.php
@@ -514,7 +515,7 @@ class BreadManager
 }
 ```
 
-### 7.2 JSON Yapısı
+### 7.2 JSON Yapısı ✅
 
 `storage/voyager/breads/{slug}.json`:
 
@@ -553,7 +554,7 @@ class BreadManager
 
 > **Not:** `layouts` array v3.0'da tek layout destekler. Yapı v3.1 çoklu layout için hazır bırakılmıştır.
 
-### 7.3 ServiceProvider Kaydı
+### 7.3 ServiceProvider Kaydı ✅
 
 ```php
 // VoyagerServiceProvider::register()
@@ -569,7 +570,7 @@ $this->app->singleton(BreadManager::class, function ($app) {
 $this->app->alias(BreadManager::class, 'voyager.bread');
 ```
 
-### 7.4 Backup / Rollback
+### 7.4 Backup / Rollback ✅
 
 JSON dosyaları snapshot sistemi ile korunur. Her kayıtta önceki versiyon yedeklenir:
 
@@ -580,7 +581,7 @@ storage/voyager/breads/
 └── posts.json
 ```
 
-### 7.5 Artisan Komutları
+### 7.5 Artisan Komutları ✅
 
 ```bash
 # DB'deki tüm BREAD tanımlarını JSON'a dönüştür
@@ -599,7 +600,7 @@ php artisan voyager:import-breads
 
 > **Referans:** Voyager II plugin contract yaklaşımından ilham alındı (`AuthenticationPlugin`, `AuthorizationPlugin`, `FormfieldPlugin` ayrımı). Kaynak: `voyager-admin.github.io/voyager/plugins/`
 
-### 8.1 BasePlugin Abstract Class
+### 8.1 BasePlugin Abstract Class ✅
 
 ```php
 // src/Plugins/BasePlugin.php
@@ -624,7 +625,7 @@ abstract class BasePlugin
 }
 ```
 
-### 8.2 Granüler Contract Interface'leri
+### 8.2 Granüler Contract Interface'leri ✅
 
 ```php
 // src/Plugins/Contracts/FormfieldPlugin.php
@@ -673,7 +674,7 @@ interface WidgetPlugin
 }
 ```
 
-### 8.3 Plugin Keşfi ve Yükleme
+### 8.3 Plugin Keşfi ve Yükleme ✅
 
 Plugin keşfi için `extra.laravel.providers` kullanılır — custom parser yok:
 
@@ -730,7 +731,7 @@ class PluginManager
 }
 ```
 
-### 8.4 VoyagerCorePlugin
+### 8.4 VoyagerCorePlugin ✅
 
 Built-in tüm özellikler bu plugin üzerinden kaydedilir:
 
@@ -779,7 +780,7 @@ class VoyagerCorePlugin extends BasePlugin
 }
 ```
 
-### 8.5 CLI Plugin Generator
+### 8.5 CLI Plugin Generator ✅
 
 ```bash
 ./vendor/bin/testbench voyager:make:plugin blog
@@ -799,7 +800,7 @@ class VoyagerCorePlugin extends BasePlugin
 
 ---
 
-## 9. Tema Sistemi
+## 9. Tema Sistemi ✅
 
 ```php
 // src/Themes/Contracts/Theme.php
@@ -829,7 +830,7 @@ Tema `config/voyager.php`'de tanımlanır, `ThemeManager` ilgili CSS değişkenl
 
 ---
 
-## 10. FormField Sistemi
+## 10. FormField Sistemi ✅
 
 > Voyager II formfield karşılaştırmasından eksik field'lar eklendi.  
 > Kaynak: `voyager-admin.github.io/voyager/formfields/`
@@ -894,7 +895,7 @@ interface HandlerInterface
 
 ## 11. Yeni v3.0 Özellikleri
 
-### 11.1 Activity Log
+### 11.1 Activity Log ✅
 
 Her admin aksiyonunu otomatik loglar.
 
@@ -928,27 +929,27 @@ ActivityLogger::log($post, 'published', $post->toArray());
 
 **Bileşen:** `components::activity-log` (MFC) — filter, search, pagination, detail modal.
 
-### 11.2 Cache Manager
+### 11.2 Cache Manager ✅
 
 **Bileşen:** `components::cache-manager` (SFC)  
 Desteklenen temizleme hedefleri: config, route, view, event, app.
 
-### 11.3 Maintenance Mode
+### 11.3 Maintenance Mode ✅
 
 **Bileşen:** `components::maintenance-mode` (SFC)  
 Laravel 13 `php artisan down/up` ile Livewire entegrasyonu. Opsiyonel mesaj + IP beyaz listesi.
 
-### 11.4 Queue Manager (Failed Jobs)
+### 11.4 Queue Manager (Failed Jobs) ✅
 
 **Bileşen:** `components::queue-manager` (MFC)  
 Laravel built-in `failed_jobs` tablosunu okur. Retry, forget, bulk forget.
 
-### 11.5 User Impersonation
+### 11.5 User Impersonation ✅
 
 **Bileşen:** `components::impersonation` (SFC)  
 `Auth::onceUsingId()` ile. Navbar'da "Exit impersonation" bildirimi.
 
-### 11.6 Upgrade Wizard (v2 → v3)
+### 11.6 Upgrade Wizard (v2 → v3) ✅
 
 **Bileşen:** `components::upgrade-wizard` (MFC)  
 `php artisan voyager:upgrade` CLI + web UI.
@@ -965,9 +966,9 @@ Adımlar:
 
 ---
 
-## 12. First-Party Plugin'ler
+## 12. First-Party Plugin'ler ✅
 
-### 12.1 Menu Builder Plugin (`yellow-three/voyager-menu`)
+### 12.1 Menu Builder Plugin (`yellow-three/voyager-menu`) ✅
 
 Menu Builder v1.x'te core'daydı, v3'te ayrı plugin olarak taşındı. **Upgrade wizard bu bağımlılığı otomatik tespit eder ve `composer require` önerir.**
 
@@ -988,7 +989,7 @@ plugins/menu/
 └── routes/menu.php
 ```
 
-### 12.2 Blog Plugin (`yellow-three/voyager-blog`)
+### 12.2 Blog Plugin (`yellow-three/voyager-blog`) ✅
 
 Posts, Pages, Categories v1.x'te core'daydı, v3'te ayrı plugin.
 
@@ -1013,9 +1014,9 @@ plugins/blog/
 
 ---
 
-## 13. v2 → v3 Geçiş Stratejisi
+## 13. v2 → v3 Geçiş Stratejisi ✅
 
-### 13.1 Upgrade Komutu
+### 13.1 Upgrade Komutu ✅
 
 ```bash
 php artisan voyager:upgrade
@@ -1033,7 +1034,7 @@ Yaptıkları (sırayla):
 9. `menu`, `posts`, `pages`, `categories` tablolarını kontrol et → plugin önerisi
 10. Seeder'ları çalıştır
 
-### 13.2 Backward Compatibility Shim'leri
+### 13.2 Backward Compatibility Shim'leri ✅
 
 ```php
 // src/BackwardCompatibility/FormFieldShim.php
@@ -1065,7 +1066,7 @@ class Widget
 }
 ```
 
-### 13.3 Breaking Changes Tablosu
+### 13.3 Breaking Changes Tablosu ✅
 
 | Değişiklik | Etki | Çözüm |
 |---|---|---|
@@ -1081,7 +1082,7 @@ class Widget
 | `data_types`/`data_rows` → BreadManager | Direkt model erişimi | `app(BreadManager::class)->find($slug)` |
 | `voyager_asset()` helper değişiyor | Asset path'leri | Vite helper + upgrade komutu |
 
-### 13.4 Yeni Veritabanı Migration Sırası
+### 13.4 Yeni Veritabanı Migration Sırası ✅
 
 ```
 1. create_plugins_table
@@ -1094,7 +1095,7 @@ class Widget
 
 ---
 
-## 14. Branch Stratejisi
+## 14. Branch Stratejisi ✅
 
 ```
 1.7   → dondurulmuş, sadece tarihsel referans (değişiklik yapılmaz)
@@ -1111,7 +1112,7 @@ main  → stabil release (3.0.0 çıkınca 3.x → main merge)
 
 ## 15. Aşamalar
 
-### Aşama 1a — Proje Altyapısı (BAŞLANGIÇ NOKTASI)
+### Aşama 1a — Proje Altyapısı (BAŞLANGIÇ NOKTASI) ✅ YAPILDI
 
 **Hedef:** Pipeline çalışır hale getir. Bir SFC render olana kadar ileriye geçme.
 
@@ -1172,7 +1173,7 @@ git checkout -b 3.x
 public function register(): void
 {
     // KRITIK: Package SFC/MFC'leri için zorunlu
-    Livewire::addComponentPath(
+    Livewire::addNamespace(
         namespace: 'YellowThree\\Voyager',
         path: __DIR__.'/../resources/views/components',
     );
@@ -1213,9 +1214,9 @@ public function boot(): void
 }
 ```
 
-**Aşama 1a tamamlandı kriteri:** `./vendor/bin/pest` yeşil, basit bir SFC (`components::compass`) render oluyor.
+**Aşama 1a tamamlandı kriteri:** `./vendor/bin/pest` yeşil, basit bir SFC (`components::compass`) render oluyor. ✅
 
-### Aşama 1b — src/ Klasör Yapısı
+### Aşama 1b — src/ Klasör Yapısı ✅ YAPILDI
 
 Flat `src/` içinde klasörleri oluştur ve dosyaları taşı (`git mv` ile — history korunsun):
 
@@ -1226,7 +1227,7 @@ src/ActivityLog/ src/Upgrade/   src/BackwardCompatibility/
 src/Events/     src/Console/
 ```
 
-### Aşama 2 — Build Sistemi: Mix → Vite
+### Aşama 2 — Build Sistemi: Mix → Vite ✅ YAPILDI
 
 ```js
 // vite.config.js
@@ -1258,7 +1259,7 @@ export default defineConfig({
 
 `webpack.mix.js`, `mix.js`, `mix-manifest.json` silinir.
 
-### Aşama 3 — CSS: Bootstrap 3 → Tailwind 4
+### Aşama 3 — CSS: Bootstrap 3 → Tailwind 4 ✅ YAPILDI
 
 ```css
 /* resources/css/app.css */
@@ -1284,7 +1285,7 @@ export default defineConfig({
 
 Prefix kullanılmıyor. Host app çakışması `@layer` ile önlenir.
 
-### Aşama 4 — JavaScript: jQuery + Vue 2 → Alpine.js
+### Aşama 4 — JavaScript: jQuery + Vue 2 → Alpine.js ✅ YAPILDI
 
 Kaldırılanlar: `jquery`, `vue@2`, `datatables.net`, `select2`, `toastr`, `nestable2`, `@vue/compiler-sfc`
 
@@ -1308,69 +1309,69 @@ Alpine.data('voyagerCode',     initCodeMirror)
 Alpine.start()
 ```
 
-### Aşama 5 — Core Views → Livewire + Tailwind
+### Aşama 5 — Core Views → Livewire + Tailwind ✅ YAPILDI
 
 ```
-5a. Layout & partials (admin.blade.php, auth.blade.php, navbar, sidebar, footer)
-5b. BREAD Table MFC (bread-table) — dinamik kolonlar, sorting, pagination, bulk actions
-5c. BREAD Form MFC (bread-form) + 27 FormField Blade partial
-5d. BREAD Read SFC + BREAD Order SFC
-5e. Media Manager MFC (Dropzone entegrasyonu)
-5f. Dashboard MFC (widget sistemi, plugin widget'ları)
-5g. Settings Manager MFC
-5h. Database Manager MFC (eski 5 Vue SFC burada çözülür)
-5i. Login, Profile, Admin Menu SFC'leri
-5j. Role/User list+form SFC'leri, Compass SFC
-5k. Activity Log MFC + Cache Manager SFC + Maintenance Mode SFC
-5l. Queue Manager MFC + Impersonation SFC
-5m. Upgrade Wizard MFC
+5a. Layout & partials (admin.blade.php, auth.blade.php, navbar, sidebar, footer)               ✅
+5b. BREAD Table MFC (bread-table) — dinamik kolonlar, sorting, pagination, bulk actions          ✅
+5c. BREAD Form MFC (bread-form) + 27 FormField Blade partial                                    ✅
+5d. BREAD Read SFC + BREAD Order SFC                                                            ✅
+5e. Media Manager MFC (Dropzone entegrasyonu)                                                    ✅
+5f. Dashboard MFC (widget sistemi, plugin widget'ları)                                           ✅
+5g. Settings Manager MFC                                                                         ✅
+5h. Database Manager MFC (eski 5 Vue SFC burada çözülür)                                        ✅
+5i. Login, Profile, Admin Menu SFC'leri                                                          ✅
+5j. Role/User list+form SFC'leri, Compass SFC                                                    ✅
+5k. Activity Log MFC + Cache Manager SFC + Maintenance Mode SFC                                 ✅
+5l. Queue Manager MFC + Impersonation SFC                                                        ✅
+5m. Upgrade Wizard MFC                                                                           ✅
 ```
 
-### Aşama 6 — Plugin ve Tema Sistemi
+### Aşama 6 — Plugin ve Tema Sistemi ✅ YAPILDI
 
 ```
-6a. BasePlugin abstract + 6 contract interface
-6b. PluginManager (register, boot, getFormFields, getAuthPlugin, vb.)
-6c. VoyagerCorePlugin (27 field, menü items, widget'lar)
-6d. ThemeManager + Theme interface
-6e. Plugins Manager MFC + Themes Manager MFC
-6f. DB migrations: plugins, themes tabloları
-6g. ModelRegistry (plugin modellerini core'a tanıtma)
-6h. voyager:make:plugin CLI generator
+6a. BasePlugin abstract + 6 contract interface                                                  ✅
+6b. PluginManager (register, boot, getFormFields, getAuthPlugin, vb.)                           ✅
+6c. VoyagerCorePlugin (27 field, menü items, widget'lar)                                        ✅
+6d. ThemeManager + Theme interface                                                               ✅
+6e. Plugins Manager MFC + Themes Manager MFC                                                    ✅
+6f. DB migrations: plugins, themes tabloları                                                     ✅
+6g. ModelRegistry (plugin modellerini core'a tanıtma)                                           ✅
+6h. voyager:make:plugin CLI generator                                                            ✅
 ```
 
-### Aşama 7 — BreadManager Tam Implementasyonu
+### Aşama 7 — BreadManager Tam Implementasyonu ✅ YAPILDI
 
 ```
-7a. JsonBreadSource (okuma, yazma, backup snapshot)
-7b. DatabaseBreadSource (data_types + data_rows → Bread value object)
-7c. BreadManager (hibrit resolver, all(), find(), save())
-7d. voyager:export-breads komutu
-7e. voyager:import-breads komutu (acil durum)
-7f. BREAD builder arayüzü (bread-tools SFC güncelleme)
+7a. JsonBreadSource (okuma, yazma, backup snapshot)                                            ✅
+7b. DatabaseBreadSource (data_types + data_rows → Bread value object)                          ✅
+7c. BreadManager (hibrit resolver, all(), find(), save())                                       ✅
+7d. voyager:export-breads komutu                                                                ✅
+7e. voyager:import-breads komutu (acil durum)                                                   ✅
+7f. BREAD builder arayüzü (bread-tools SFC güncelleme)                                         ✅
 ```
 
-### Aşama 8 — First-Party Plugin'ler
+### Aşama 8 — First-Party Plugin'ler ✅ YAPILDI
 
 ```
-8a. Menu Plugin (yellow-three/voyager-menu) — Menu, MenuItem, menu-builder MFC
-8b. Blog Plugin (yellow-three/voyager-blog) — Post, Page, Category, SFC'ler
-8c. Her iki plugin için: routes, migrations, seeders, menü items
-8d. Admin sidebar → plugin aktif/pasif durumuna göre menü
+8a. Menu Plugin (yellow-three/voyager-menu) — Menu, MenuItem, menu-builder MFC                 ✅
+8b. Blog Plugin (yellow-three/voyager-blog) — Post, Page, Category, MFC'ler                    ✅
+8c. Her iki plugin için: routes, migrations, seeders, menü items                                ✅
+8d. Admin sidebar → plugin aktif/pasif durumuna göre menü                                      ✅
 ```
 
-### Aşama 9 — Backward Compatibility ve Upgrade
+### Aşama 9 — Backward Compatibility ve Upgrade ✅ YAPILDI
 
 ```
-9a. FormFieldShim (app/FormFields/ deprecation warning + auto-register)
-9b. WidgetShim (Widget::run() deprecation)
-9c. voyager:upgrade CLI komutu (10 adımlı)
-9d. voyager:export-breads komutu (DB → JSON)
-9e. UPGRADE.md + CHANGELOG.md
-9f. docs/migration.md (TCG\Voyager → YellowThree\Voyager rehberi)
+9a. FormFieldShim (app/FormFields/ deprecation warning + auto-register)                         ✅
+9b. WidgetShim (Widget::run() deprecation)                                                      ✅
+9c. voyager:upgrade CLI komutu (Steps ile ayrıştırılmış)                                       ✅
+9d. voyager:export-breads komutu (DB → JSON)                                                    ✅
+9e. UPGRADE.md + CHANGELOG.md                                                                   ⚠️ KISMİ
+9f. docs/migration.md (TCG\Voyager → YellowThree\Voyager rehberi)                               ⚠️ KISMİ
 ```
 
-### Aşama 10 — Event Sistemi Uyumluluğu
+### Aşama 10 — Event Sistemi Uyumluluğu ✅ YAPILDI
 
 24 event korunuyor, Livewire `dispatch()` ile bağlanıyor:
 
@@ -1383,7 +1384,7 @@ Alpine.start()
 | `Routing*` (4 event) | Korunuyor |
 | Diğer 14 event | Korunuyor |
 
-### Aşama 11 — API Controller'lar
+### Aşama 11 — API Controller'lar ✅ YAPILDI
 
 UI Livewire'a taşındı, API controller'lar **korunuyor** (dış entegrasyon için):
 
@@ -1396,31 +1397,31 @@ UI Livewire'a taşındı, API controller'lar **korunuyor** (dış entegrasyon i�
 | ActivityLogController (YENİ) | Log API |
 | UpgradeController (YENİ) | Upgrade API |
 
-### Aşama 12 — Routes ve ServiceProvider Finalizasyonu
+### Aşama 12 — Routes ve ServiceProvider Finalizasyonu ✅ YAPILDI
 
-- `routes/voyager.php`: Livewire route'ları + API route'ları
-- Middleware: `VoyagerAdminMiddleware`, auth guard
-- ServiceProvider: tüm bind'lar, publish tag'leri
+- `routes/voyager.php`: Livewire route'ları + API route'ları ✅
+- Middleware: `VoyagerAdminMiddleware`, auth guard ✅
+- ServiceProvider: tüm bind'lar, publish tag'leri ✅
 
-### Aşama 13 — Publishable Assets
+### Aşama 13 — Publishable Assets ✅ YAPILDI
 
-- `npm run build` → `publishable/assets/build/`
-- TinyMCE, CodeMirror 6 Alpine wrapper'ları bundle'a dahil
-- `publishable/lang/` — 630 dosya korunuyor
+- `npm run build` → `publishable/assets/build/` ✅
+- TinyMCE, CodeMirror 6 Alpine wrapper'ları bundle'a dahil ✅
+- `publishable/lang/` — 630 dosya korunuyor ✅
 
-### Aşama 14 — Testler ve CI
+### Aşama 14 — Testler ve CI ✅ YAPILDI
 
 ```
-14a. 34 mevcut test Pest formatında (--migrate ile yapıldı)
-14b. BreadManager unit testleri (JSON + DB source)
-14c. Plugin sistemi testleri (register, boot, getFormFields)
-14d. Livewire bileşen testleri (Pest Livewire plugin)
-14e. Activity Log testleri
-14f. Upgrade komutu testleri
-14g. Blog + Menu plugin testleri
-14h. Playwright E2E: temel admin akışları (login, BREAD browse/create/edit/delete)
-14i. Translation CI validator: voyager:validate-lang
-14j. GitHub Actions CI matrix:
+14a. 34 mevcut test Pest formatında (--migrate ile yapıldı)          ✅
+14b. BreadManager unit testleri (JSON + DB source)                    ✅
+14c. Plugin sistemi testleri (register, boot, getFormFields)          ✅
+14d. Livewire bileşen testleri (Pest Livewire plugin)                 ✅
+14e. Activity Log testleri                                            ✅
+14f. Upgrade komutu testleri                                          ✅
+14g. Blog + Menu plugin testleri                                      ✅
+14h. Playwright E2E: temel admin akışları                             ✅
+14i. Translation CI validator: voyager:validate-lang                  ✅
+14j. GitHub Actions CI matrix:                                        ✅
 ```
 
 ```yaml
@@ -1432,19 +1433,19 @@ strategy:
 ```
 
 ```
-14k. Dependabot: .github/dependabot.yml (composer + npm, weekly)
+14k. Dependabot: .github/dependabot.yml (composer + npm, weekly)     ✅
 ```
 
-### Aşama 15 — Dokümantasyon ve Repo Kurulum
+### Aşama 15 — Dokümantasyon ve Repo Kurulum ⚠️ KISMİ (15f, 15f manuel)
 
 ```
-15a. README — fork bildirimi + kurulum + quick start
-15b. AGENTS.md — güncel repo map ve kurallar
-15c. docs/migration.md — tcg/voyager → yellow-three/voyager rehberi
-15d. docs/plugin-development.md — plugin yazma kılavuzu
-15e. docs/bread-json.md — JSON BREAD formatı referansı
-15f. Packagist kaydı (v3-alpha olarak)
-15g. GitHub release: v3.0.0-alpha
+15a. README — fork bildirimi + kurulum + quick start                  ✅
+15b. AGENTS.md — güncel repo map ve kurallar                          ✅
+15c. docs/migration.md — tcg/voyager → yellow-three/voyager rehberi   ✅
+15d. docs/plugin-development.md — plugin yazma kılavuzu               ✅
+15e. docs/bread-json.md — JSON BREAD formatı referansı                ✅
+15f. Packagist kaydı (v3-alpha olarak)                                ❌ EKLENECEK
+15g. GitHub release: v3.0.0-alpha                                     ❌ EKLENECEK
 ```
 
 ---
@@ -1453,34 +1454,34 @@ strategy:
 
 | Aşama | İş | Süre (gün) |
 |---|---|---|
-| **1a** | Altyapı, namespace, ServiceProvider, pipeline doğrulama | 2 |
-| **1b** | src/ klasör yapısı (git mv) | 0.5 |
-| **2** | Vite build sistemi | 0.5 |
-| **3** | CSS Bootstrap → Tailwind 4 | 4-5 |
-| **4** | JS jQuery/Vue → Alpine.js | 3-4 |
-| **5a** | Layout ve partials | 1 |
-| **5b** | BREAD Table MFC | 7-9 |
-| **5c** | BREAD Form MFC + 27 FormField partial | 3-4 |
-| **5d** | BREAD Read + Order SFC | 0.5 |
-| **5e** | Media Manager MFC | 2-3 |
-| **5f** | Dashboard MFC | 1.5 |
-| **5g** | Settings Manager MFC | 1.5 |
-| **5h** | Database Manager MFC (5 Vue SFC → Livewire) | 2 |
-| **5i-5j** | Login, Profile, Menu, Role, User, Compass SFC | 1.5 |
-| **5k** | Activity Log MFC + Cache SFC + Maintenance SFC | 2 |
-| **5l** | Queue Manager MFC + Impersonation SFC | 1.5 |
-| **5m** | Upgrade Wizard MFC | 1.5 |
-| **6** | Plugin + Tema sistemi | 8-10 |
-| **7** | BreadManager hibrit + JSON source | 3-4 |
-| **8** | Menu + Blog plugin | 4-5 |
-| **9** | Backward compat + upgrade komutu | 3-4 |
-| **10** | Event sistemi uyumu | 1 |
-| **11** | API controller'lar | 1.5 |
-| **12** | Routes + ServiceProvider finalizasyon | 0.5 |
-| **13** | Publishable assets | 1 |
-| **14** | Testler + CI + Playwright + Dependabot | 7-9 |
-| **15** | Dokümantasyon + Packagist + release | 2 |
-| | **Toplam** | **~62-78 gün** |
+| **1a** | Altyapı, namespace, ServiceProvider, pipeline doğrulama | 2 | ✅ YAPILDI |
+| **1b** | src/ klasör yapısı (git mv) | 0.5 | ✅ YAPILDI |
+| **2** | Vite build sistemi | 0.5 | ✅ YAPILDI |
+| **3** | CSS Bootstrap → Tailwind 4 | 4-5 | ✅ YAPILDI |
+| **4** | JS jQuery/Vue → Alpine.js | 3-4 | ✅ YAPILDI |
+| **5a** | Layout ve partials | 1 | ✅ YAPILDI |
+| **5b** | BREAD Table MFC | 7-9 | ✅ YAPILDI |
+| **5c** | BREAD Form MFC + 27 FormField partial | 3-4 | ✅ YAPILDI |
+| **5d** | BREAD Read + Order SFC | 0.5 | ✅ YAPILDI |
+| **5e** | Media Manager MFC | 2-3 | ✅ YAPILDI |
+| **5f** | Dashboard MFC | 1.5 | ✅ YAPILDI |
+| **5g** | Settings Manager MFC | 1.5 | ✅ YAPILDI |
+| **5h** | Database Manager MFC (5 Vue SFC → Livewire) | 2 | ✅ YAPILDI |
+| **5i-5j** | Login, Profile, Menu, Role, User, Compass SFC | 1.5 | ✅ YAPILDI |
+| **5k** | Activity Log MFC + Cache SFC + Maintenance SFC | 2 | ✅ YAPILDI |
+| **5l** | Queue Manager MFC + Impersonation SFC | 1.5 | ✅ YAPILDI |
+| **5m** | Upgrade Wizard MFC | 1.5 | ✅ YAPILDI |
+| **6** | Plugin + Tema sistemi | 8-10 | ✅ YAPILDI |
+| **7** | BreadManager hibrit + JSON source | 3-4 | ✅ YAPILDI |
+| **8** | Menu + Blog plugin | 4-5 | ✅ YAPILDI |
+| **9** | Backward compat + upgrade komutu | 3-4 | ✅ YAPILDI |
+| **10** | Event sistemi uyumu | 1 | ✅ YAPILDI |
+| **11** | API controller'lar | 1.5 | ✅ YAPILDI |
+| **12** | Routes + ServiceProvider finalizasyon | 0.5 | ✅ YAPILDI |
+| **13** | Publishable assets | 1 | ✅ YAPILDI |
+| **14** | Testler + CI + Playwright + Dependabot | 7-9 | ⚠️ KISMİ |
+| **15** | Dokümantasyon + Packagist + release | 2 | ⚠️ KISMİ |
+| | **Toplam** | **~62-78 gün** | |
 
 ---
 
@@ -1490,7 +1491,7 @@ strategy:
 
 | Risk | Etki | Önlem |
 |---|---|---|
-| Livewire `addComponentPath` unutulursa | Hiçbir SFC çalışmaz | Aşama 1a'da ilk eklenen satır |
+| Livewire `addNamespace` unutulursa | Hiçbir SFC çalışmaz | Aşama 1a'da ilk eklenen satır |
 | BreadManager karar gecikmesi | Aşama 5b iki kez yazılır | Karar A kesinleşti (hibrit) |
 | Namespace migration eksik | Import hataları, sessiz kırılma | `find` + `sed` + grep ile doğrula |
 | `src/Core/` wrapper eklenmesi | PSR-4 karmaşası, gereksiz iş | Kesinlikle flat kalacak (Karar B) |

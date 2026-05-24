@@ -3,7 +3,8 @@ name: Coverage
 on:
   push:
     branches:
-      - '1.*'
+      - '3.x'
+      - main
   pull_request:
     types:
       - synchronize
@@ -16,37 +17,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
 
-      # Configure PHP
       - name: Select PHP version
-        uses: shivammathur/setup-php@master
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.4'
           extensions: mbstring, pdo_sqlite, fileinfo, gd
           coverage: pcov
 
-      # Configure NPM
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: 20
 
-      # Install PHP dependencies
       - name: Install Composer dependencies
-        run: composer require "illuminate/support:9.*" --no-ansi
+        run: composer update --prefer-stable --prefer-dist --no-interaction
 
-      # Install NPM dependencies
-      - name: Install Dependencies
-        run: npm install
+      - name: Install NPM dependencies
+        run: npm ci
 
-      # Build static assets
-      - name: Compile Assets
-        run: npm run prod
+      - name: Build Assets
+        run: npm run build
 
-      # Run phpunit tests to generate coverage report
       - name: Run tests for coverage
-        run: php -d pcov.enabled=1 ./vendor/bin/phpunit --coverage-clover=coverage.xml
+        run: php -d pcov.enabled=1 ./vendor/bin/pest --coverage --coverage-clover=coverage.xml --min=0
 
-      # Upload coverage report to codecov.io
       - name: Upload coverage
-        run: bash <(curl -s https://codecov.io/bash)
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage.xml
