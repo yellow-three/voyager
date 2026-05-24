@@ -30,9 +30,12 @@ window.helpers = require('./helpers.js');
 
 Vue.component('admin-menu', require('./components/admin_menu.vue').default);
 
-var admin_menu = new Vue({
-    el: '#adminmenu',
-});
+// Only init if the element exists (dashboard uses Livewire now)
+if (document.querySelector('#adminmenu')) {
+    var admin_menu = new Vue({
+        el: '#adminmenu',
+    });
+}
 
 $(document).ready(function () {
     var appContainer = $(".app-container"),

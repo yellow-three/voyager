@@ -1111,7 +1111,7 @@ main  → stabil release (3.0.0 çıkınca 3.x → main merge)
 
 ## 15. Aşamalar
 
-### Aşama 1a — Proje Altyapısı (BAŞLANGIÇ NOKTASI) [x] YAPILDI
+### Aşama 1a — Proje Altyapısı (BAŞLANGIÇ NOKTASI)
 
 **Hedef:** Pipeline çalışır hale getir. Bir SFC render olana kadar ileriye geçme.
 
@@ -1215,7 +1215,7 @@ public function boot(): void
 
 **Aşama 1a tamamlandı kriteri:** `./vendor/bin/pest` yeşil, basit bir SFC (`components::compass`) render oluyor.
 
-### Aşama 1b — src/ Klasör Yapısı [x] YAPILDI
+### Aşama 1b — src/ Klasör Yapısı
 
 Flat `src/` içinde klasörleri oluştur ve dosyaları taşı (`git mv` ile — history korunsun):
 
@@ -1226,7 +1226,7 @@ src/ActivityLog/ src/Upgrade/   src/BackwardCompatibility/
 src/Events/     src/Console/
 ```
 
-### Aşama 2 — Build Sistemi: Mix → Vite [x] YAPILDI
+### Aşama 2 — Build Sistemi: Mix → Vite
 
 ```js
 // vite.config.js
@@ -1258,7 +1258,7 @@ export default defineConfig({
 
 `webpack.mix.js`, `mix.js`, `mix-manifest.json` silinir.
 
-### Aşama 3 — CSS: Bootstrap 3 → Tailwind 4 [x] YAPILDI
+### Aşama 3 — CSS: Bootstrap 3 → Tailwind 4
 
 ```css
 /* resources/css/app.css */
@@ -1284,7 +1284,7 @@ export default defineConfig({
 
 Prefix kullanılmıyor. Host app çakışması `@layer` ile önlenir.
 
-### Aşama 4 — JavaScript: jQuery + Vue 2 → Alpine.js [x] YAPILDI
+### Aşama 4 — JavaScript: jQuery + Vue 2 → Alpine.js
 
 Kaldırılanlar: `jquery`, `vue@2`, `datatables.net`, `select2`, `toastr`, `nestable2`, `@vue/compiler-sfc`
 
@@ -1308,46 +1308,46 @@ Alpine.data('voyagerCode',     initCodeMirror)
 Alpine.start()
 ```
 
-### Aşama 5 — Core Views → Livewire + Tailwind [x] YAPILDI
+### Aşama 5 — Core Views → Livewire + Tailwind
 
 ```
-5a. Layout & partials (admin.blade.php, auth.blade.php, navbar, sidebar, footer) [x] YAPILDI
-5b. BREAD Table MFC (bread-table) — dinamik kolonlar, sorting, pagination, bulk actions [x] YAPILDI
-5c. BREAD Form MFC (bread-form) + 27 FormField Blade partial [x] YAPILDI
-5d. BREAD Read SFC + BREAD Order SFC [x] YAPILDI
-5e. Media Manager MFC (Dropzone entegrasyonu) [x] YAPILDI
-5f. Dashboard MFC (widget sistemi, plugin widget'ları) [x] YAPILDI
-5g. Settings Manager MFC [x] YAPILDI
-5h. Database Manager MFC (eski 5 Vue SFC burada çözülür) [x] YAPILDI
-5i. Login, Profile, Admin Menu SFC'leri [x] YAPILDI
-5j. Role/User list+form SFC'leri, Compass SFC [x] YAPILDI
-5k. Activity Log MFC + Cache Manager SFC + Maintenance Mode SFC [x] YAPILDI
-5l. Queue Manager MFC + Impersonation SFC [x] YAPILDI
-5m. Upgrade Wizard MFC [x] YAPILDI
+5a. Layout & partials (admin.blade.php, auth.blade.php, navbar, sidebar, footer)
+5b. BREAD Table MFC (bread-table) — dinamik kolonlar, sorting, pagination, bulk actions
+5c. BREAD Form MFC (bread-form) + 27 FormField Blade partial
+5d. BREAD Read SFC + BREAD Order SFC
+5e. Media Manager MFC (Dropzone entegrasyonu)
+5f. Dashboard MFC (widget sistemi, plugin widget'ları)
+5g. Settings Manager MFC
+5h. Database Manager MFC (eski 5 Vue SFC burada çözülür)
+5i. Login, Profile, Admin Menu SFC'leri
+5j. Role/User list+form SFC'leri, Compass SFC
+5k. Activity Log MFC + Cache Manager SFC + Maintenance Mode SFC
+5l. Queue Manager MFC + Impersonation SFC
+5m. Upgrade Wizard MFC
 ```
 
-### Aşama 6 — Plugin ve Tema Sistemi [x] YAPILDI
+### Aşama 6 — Plugin ve Tema Sistemi
 
 ```
-6a. BasePlugin abstract + 6 contract interface [x] YAPILDI
-6b. PluginManager (register, boot, getFormFields, getAuthPlugin, vb.) [x] YAPILDI
-6c. VoyagerCorePlugin (27 field, menü items, widget'lar) [x] YAPILDI
-6d. ThemeManager + Theme interface [x] YAPILDI
-6e. Plugins Manager MFC + Themes Manager MFC [x] YAPILDI
-6f. DB migrations: plugins, themes tabloları [x] YAPILDI
-6g. ModelRegistry (plugin modellerini core'a tanıtma) [x] YAPILDI
-6h. voyager:make:plugin CLI generator [x] YAPILDI
+6a. BasePlugin abstract + 6 contract interface
+6b. PluginManager (register, boot, getFormFields, getAuthPlugin, vb.)
+6c. VoyagerCorePlugin (27 field, menü items, widget'lar)
+6d. ThemeManager + Theme interface
+6e. Plugins Manager MFC + Themes Manager MFC
+6f. DB migrations: plugins, themes tabloları
+6g. ModelRegistry (plugin modellerini core'a tanıtma)
+6h. voyager:make:plugin CLI generator
 ```
 
-### Aşama 7 — BreadManager Tam Implementasyonu [x] YAPILDI
+### Aşama 7 — BreadManager Tam Implementasyonu
 
 ```
-7a. JsonBreadSource (okuma, yazma, backup snapshot) [x] YAPILDI
-7b. DatabaseBreadSource (data_types + data_rows → Bread value object) [x] YAPILDI
-7c. BreadManager (hibrit resolver, all(), find(), save()) [x] YAPILDI
-7d. voyager:export-breads komutu [x] YAPILDI
-7e. voyager:import-breads komutu (acil durum) [x] YAPILDI
-7f. BREAD builder arayüzü (bread-tools SFC güncelleme) [x] YAPILDI
+7a. JsonBreadSource (okuma, yazma, backup snapshot)
+7b. DatabaseBreadSource (data_types + data_rows → Bread value object)
+7c. BreadManager (hibrit resolver, all(), find(), save())
+7d. voyager:export-breads komutu
+7e. voyager:import-breads komutu (acil durum)
+7f. BREAD builder arayüzü (bread-tools SFC güncelleme)
 ```
 
 ### Aşama 8 — First-Party Plugin'ler
