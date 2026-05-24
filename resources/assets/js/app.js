@@ -43,7 +43,9 @@ $(document).ready(function () {
         new PerfectScrollbar('.side-menu');
     }
 
-    $('#voyager-loader').fadeOut();
+    if ($('#voyager-loader').length) {
+        $('#voyager-loader').fadeOut();
+    }
 
     $(".hamburger, .navbar-expand-toggle").on('click', function () {
         appContainer.toggleClass("expanded");
