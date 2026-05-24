@@ -63,61 +63,12 @@ class ControllersCommand extends Command
     {
         $stub = $this->getStub();
         $files = $this->filesystem->files(base_path('vendor/tcg/voyager/src/Http/Controllers'));
-        $namespace = config('voyager.controllers.namespace', 'TCG\\Voyager\\Http\\Controllers');
-
-        $appNamespace = app()->getNamespace();
-
-        if (!Str::startsWith($namespace, $appNamespace)) {
-            return $this->error('The controllers namespace must start with your application namespace: '.$appNamespace);
-        }
-
-        $location = str_replace('\\', DIRECTORY_SEPARATOR, substr($namespace, strlen($appNamespace)));
-
-        if (!$this->filesystem->isDirectory(app_path($location))) {
-            $this->filesystem->makeDirectory(app_path($location));
-        }
-
-        foreach ($files as $file) {
-            $parts = explode(DIRECTORY_SEPARATOR, $file);
-            $filename = end($parts);
-
-            if ($filename == 'Controller.php') {
-                continue;
-            }
-
-            $path = app_path($location.DIRECTORY_SEPARATOR.$filename);
-
-            if (!$this->filesystem->exists($path) or $this->option('force')) {
-                $class = substr($filename, 0, strpos($filename, '.'));
-                $content = $this->generateContent($stub, $class);
-                $this->filesystem->put($path, $content);
-            }
-        }
-
-        $this->info('Published Voyager controllers!');
-    }
-
-    /**
-     * Get stub content.
-     *
-     * @return string
-     */
-    public function getStub()
-    {
-        return $this->filesystem->get(base_path('/vendor/tcg/voyager/stubs/'.$this->stub));
-    }
-
-    /**
-     * Generate real content from stub.
-     *
-     * @param $stub
-     * @param $class
-     *
-     * @return mixed
-     */
-    protected function generateContent($stub, $class)
-    {
-        $namespace = config('voyager.controllers.namespace', 'TCG\\Voyager\\Http\\Controllers');
+        $namespace = config('voyager.controllers.namespace', 'YellowThree\\Voyager\\Http\\Controllers');
+        $files = $this->filesystem->files(base_path('vendor/yellow-three/voyager/src/Http/Controllers'));
+        $namespace = config('voyager.controllers.namespace', 'YellowThree\\Voyager\\Http\\Controllers');
+            'YellowThree\\Voyager\\Http\\Controllers\\'.$class,
+        return $this->filesystem->get(base_path('vendor/yellow-three/voyager/stubs/'.$this->stub));
+        $namespace = config('voyager.controllers.namespace', 'YellowThree\\Voyager\\Http\\Controllers');
 
         $content = str_replace(
             'DummyNamespace',
