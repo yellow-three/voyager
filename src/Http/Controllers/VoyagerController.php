@@ -81,31 +81,27 @@ class VoyagerController extends Controller
 
     public function assets(Request $request)
     {
-        $path = urldecode($request->path);
+        $path = urldecode($request->input('path'));
         $baseDir = dirname(__DIR__, 3);
 
-        // Try Vite build output first
-        $manifestPath = $baseDir.'/publishable/assets/build/.vite/manifest.json';
-        if (File::exists($manifestPath)) {
-            $manifest = json_decode(File::get($manifestPath), true);
-            foreach ($manifest as $entry => $info) {
-                // Match the requested path against manifest entries
-                // e.g., 'js/app.js' matches entry 'resources/js/app.js' → outputs 'app2.js'
-                if (Str::endsWith($entry, $path) && isset($info['file'])) {
-                    $buildPath = $baseDir.'/publishable/assets/build/'.$info['file'];
-                    if (File::exists($buildPath)) {
-                        $mime = Str::endsWith($buildPath, '.js') ? 'text/javascript' : (Str::endsWith($buildPath, '.css') ? 'text/css' : File::mimeType($buildPath));
-                        $response = response(File::get($buildPath), 200, ['Content-Type' => $mime]);
-                        $response->setSharedMaxAge(31536000);
-                        $response->setMaxAge(31536000);
-                        $response->setExpires(new \DateTime('+1 year'));
-                        return $response;
-                    }
-                }
+        // If path starts with 'build/', serve from Vite build directory
+        if (Str::startsWith($path, 'build/')) {
+            $buildFile = substr($path, 6);
+            $buildPath = $baseDir.'/publishable/assets/build/'.$buildFile;
+
+            if (File::exists($buildPath)) {
+                $mime = Str::endsWith($buildPath, '.js') ? 'text/javascript' : (Str::endsWith($buildPath, '.css') ? 'text/css' : File::mimeType($buildPath));
+                $response = response(File::get($buildPath), 200, ['Content-Type' => $mime]);
+                $response->setSharedMaxAge(31536000);
+                $response->setMaxAge(31536000);
+                $response->setExpires(new \DateTime('+1 year'));
+                return $response;
             }
+
+            return response('', 404);
         }
 
-        // Fall back to legacy assets directory
+        // Serve from legacy assets directory
         try {
             if (class_exists(\League\Flysystem\Util::class)) {
                 $path = $baseDir.'/publishable/assets/'.\League\Flysystem\Util::normalizeRelativePath($path);

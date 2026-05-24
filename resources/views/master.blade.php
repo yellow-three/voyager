@@ -103,6 +103,9 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
 
 <script type="text/javascript" src="{{ voyager_asset('js/app.js') }}"></script>
 
+<!-- Vite build (Alpine.js components) -->
+<script type="text/javascript" src="{{ voyager_asset('build/app2.js') }}" defer></script>
+
 <script>
     @if(Session::has('alerts'))
         let alerts = {!! json_encode(Session::get('alerts')) !!};
