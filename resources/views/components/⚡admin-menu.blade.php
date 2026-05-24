@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use YellowThree\Voyager\Facades\Voyager;
 
@@ -31,7 +31,7 @@ new class extends Component {
         }
     }
 };
-@endphp
+?>
 
 <div class="px-4 py-6 space-y-1.5" x-data="{ activeDropdown: null }">
     @foreach($items as $index => $item)

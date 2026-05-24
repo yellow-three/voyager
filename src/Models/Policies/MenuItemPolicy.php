@@ -1,8 +1,8 @@
 <?php
 
-namespace YellowThree\Voyager\Policies;
+namespace YellowThree\Voyager\Models\Policies;
 
-use YellowThree\Voyager\Contracts\User;
+use YellowThree\Voyager\Models\Contracts\User;
 use YellowThree\Voyager\Facades\Voyager;
 
 class MenuItemPolicy extends BasePolicy

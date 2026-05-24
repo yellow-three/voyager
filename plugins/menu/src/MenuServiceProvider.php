@@ -13,13 +13,11 @@ class MenuServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../migrations');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
-        // Register MFC Livewire components for plugin use (e.g. @livewire() directives)
-        if (class_exists(\Livewire\Livewire::class)) {
-            \Livewire\Livewire::component('menu-list', \YellowThree\VoyagerMenu\Http\Livewire\MenuList::class);
-            \Livewire\Livewire::component('menu-builder', \YellowThree\VoyagerMenu\Http\Livewire\MenuBuilder::class);
-        }
+        \Livewire\Livewire::addLocation(
+            viewPath: __DIR__.'/../resources/views/components',
+            classNamespace: 'YellowThree\\VoyagerMenu',
+        );
 
-        // Safe check and register plugin to manager
         if (class_exists(PluginManager::class)) {
             app(PluginManager::class)->register(new MenuPlugin());
         }

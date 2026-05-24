@@ -3,5 +3,5 @@
 @section('page_title', 'BREAD Builder')
 
 @section('content')
-    <livewire:voyager::⚡bread-tools />
+    <livewire:voyager::bread-tools />
 @stop

@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -28,7 +28,7 @@ new class extends Component {
         ]);
     }
 };
-@endphp
+?>
 
 <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md space-y-4">

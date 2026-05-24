@@ -3,5 +3,5 @@
 @section('page_title', __('voyager::generic.edit'))
 
 @section('content')
-    <livewire:voyager::⚡bread-form :slug="$slug" :id="$id ?? null" />
+    <livewire:voyager::bread-form :slug="$dataType->slug" :id="$dataTypeContent->getKey() ?? null" />
 @stop

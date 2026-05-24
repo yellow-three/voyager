@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use YellowThree\Voyager\Facades\Voyager;
 
@@ -61,7 +61,7 @@ new class extends Component {
         $this->redirect(route('voyager.roles.index'));
     }
 };
-@endphp
+?>
 
 <div class="space-y-6">
     <!-- Header -->

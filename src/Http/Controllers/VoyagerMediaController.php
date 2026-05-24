@@ -29,7 +29,7 @@ class VoyagerMediaController extends Controller
         // Check permission
         $this->authorize('browse_media');
 
-        return Voyager::view('voyager::media.index');
+        return Voyager::view('voyager::media.index-livewire');
     }
 
     public function files(Request $request)

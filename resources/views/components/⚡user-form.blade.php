@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Hash;
@@ -70,7 +70,7 @@ new class extends Component {
         $this->redirect(route('voyager.users.index'));
     }
 };
-@endphp
+?>
 
 <div class="space-y-6">
     <!-- Header -->

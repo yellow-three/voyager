@@ -1,6 +1,6 @@
 <?php
 
-namespace YellowThree\Voyager\Contracts;
+namespace YellowThree\Voyager\Models\Contracts;
 
 interface User
 {

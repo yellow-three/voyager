@@ -1,6 +1,6 @@
 <?php
 
-namespace YellowThree\Voyager\Listeners;
+namespace YellowThree\Voyager\Events\Listeners;
 
 use Cache;
 use YellowThree\Voyager\Events\SettingUpdated;

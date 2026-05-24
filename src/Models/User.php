@@ -5,7 +5,7 @@ namespace YellowThree\Voyager\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use YellowThree\Voyager\Contracts\User as UserContract;
+use YellowThree\Voyager\Models\Contracts\User as UserContract;
 use YellowThree\Voyager\Tests\Database\Factories\UserFactory;
 use YellowThree\Voyager\Traits\VoyagerUser;
 

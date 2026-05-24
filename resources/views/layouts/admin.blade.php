@@ -20,8 +20,9 @@
         <link rel="shortcut icon" href="{{ Voyager::image($admin_favicon) }}" type="image/png">
     @endif
 
-    <!-- Vite Assets -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Build Assets -->
+    <link rel="stylesheet" href="{{ voyager_asset('build/app.css') }}">
+    <script defer src="{{ voyager_asset('build/app2.js') }}"></script>
 
     @livewireStyles
     @yield('css')

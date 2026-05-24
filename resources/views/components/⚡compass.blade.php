@@ -1,7 +1,6 @@
-@php
+<?php
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
-use YellowThree\Voyager\Facades\Voyager;
 
 new class extends Component {
     public array $systemInfo = [];
@@ -21,14 +20,14 @@ new class extends Component {
     private function getDbVersion(): string
     {
         try {
-            $results = DB::select(DB::raw("select version() as version"));
+            $results = DB::select('select version() as version');
             return $results[0]->version ?? 'N/A';
         } catch (\Exception $e) {
             return 'N/A';
         }
     }
 };
-@endphp
+?>
 
 <div class="space-y-8">
     <!-- Header -->

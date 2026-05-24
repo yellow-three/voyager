@@ -5,7 +5,7 @@ namespace YellowThree\Voyager\Providers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use YellowThree\Voyager\Events;
-use YellowThree\Voyager\Listeners;
+use YellowThree\Voyager\Events\Listeners;
 
 class VoyagerEventServiceProvider extends ServiceProvider
 {

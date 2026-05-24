@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use YellowThree\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\Schema;
@@ -58,7 +58,7 @@ new class extends Component {
         session()->flash('message', __('voyager::generic.successfully_saved'));
     }
 };
-@endphp
+?>
 
 <div class="space-y-6">
     <!-- Header -->

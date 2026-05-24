@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use Livewire\WithPagination;
 use YellowThree\Voyager\Facades\Voyager;
@@ -120,7 +120,7 @@ new class extends Component {
         return $query->paginate($this->perPage);
     }
 };
-@endphp
+?>
 
 <div class="space-y-6">
     <!-- Header -->

@@ -1,6 +1,6 @@
 <?php
 
-namespace YellowThree\Voyager\Actions;
+namespace YellowThree\Voyager\Bread\Actions;
 
 class RestoreAction extends AbstractAction
 {

@@ -20,7 +20,7 @@ class DataTypesTableSeeder extends Seeder
                 'display_name_plural'   => __('voyager::seeders.data_types.user.plural'),
                 'icon'                  => 'voyager-person',
                 'model_name'            => 'YellowThree\\Voyager\\Models\\User',
-                'policy_name'           => 'YellowThree\\Voyager\\Policies\\UserPolicy',
+                'policy_name'           => 'YellowThree\\Voyager\\Models\\Policies\\UserPolicy',
                 'controller'            => 'YellowThree\\Voyager\\Http\\Controllers\\VoyagerUserController',
                 'generate_permissions'  => 1,
                 'description'           => '',

@@ -1,4 +1,4 @@
-@extends('voyager::master')
+@extends('voyager::layouts.admin')
 
 @section('page_title', __('voyager::generic.settings'))
 

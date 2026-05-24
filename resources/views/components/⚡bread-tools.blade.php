@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use Illuminate\Support\Facades\Schema;
 use YellowThree\Voyager\Facades\Voyager;
@@ -143,7 +143,7 @@ new class extends Component {
         session()->flash('message', 'BREAD configuration successfully saved to JSON!');
     }
 };
-@endphp
+?>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- Tables List -->

@@ -3,7 +3,7 @@
 > **Stack:** Laravel 13 · Livewire 4 (SFC/MFC) · Tailwind CSS 4 · Vite · Alpine.js  
 > **Paket:** `yellow-three/voyager` · **Namespace:** `YellowThree\Voyager`  
 > **Son Güncelleme:** Mayıs 2026 — Tüm aşamalar tamamlandı  
-> **✅ Genel Durum: 15/15 aşama tamamlandı**
+> **✅ Tüm aşamalar tamamlandı — 15/15**
 
 ---
 
@@ -1436,7 +1436,7 @@ strategy:
 14k. Dependabot: .github/dependabot.yml (composer + npm, weekly)     ✅
 ```
 
-### Aşama 15 — Dokümantasyon ve Repo Kurulum ✅ YAPILDI (15f Packagist manuel)
+### Aşama 15 — Dokümantasyon ve Repo Kurulum ✅ YAPILDI
 
 ```
 15a. README — fork bildirimi + kurulum + quick start                  ✅
@@ -1444,7 +1444,7 @@ strategy:
 15c. docs/migration.md — tcg/voyager → yellow-three/voyager rehberi   ✅
 15d. docs/plugin-development.md — plugin yazma kılavuzu               ✅
 15e. docs/bread-json.md — JSON BREAD formatı referansı                ✅
-15f. Packagist kaydı (v3-alpha olarak)                                ❌ EKLENECEK
+15f. Packagist kaydı (v3-alpha olarak)                                ✅
 15g. GitHub release: v3.0.0-alpha                                     ✅
 ```
 

@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +20,7 @@ new class extends Component {
         }
     }
 };
-@endphp
+?>
 
 @if($isImpersonating)
     <div class="bg-amber-500 text-white px-4 py-2 flex items-center justify-between text-xs font-bold shadow-md animate-pulse">

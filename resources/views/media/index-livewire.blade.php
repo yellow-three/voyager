@@ -3,5 +3,5 @@
 @section('page_title', __('voyager::generic.media'))
 
 @section('content')
-    <livewire:voyager::⚡media-manager />
+    <livewire:voyager::media-manager />
 @stop

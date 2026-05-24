@@ -22,9 +22,9 @@ use YellowThree\Voyager\FormFields\After\DescriptionHandler;
 use YellowThree\Voyager\Http\Middleware\VoyagerAdminMiddleware;
 use YellowThree\Voyager\Models\MenuItem;
 use YellowThree\Voyager\Models\Setting;
-use YellowThree\Voyager\Policies\BasePolicy;
-use YellowThree\Voyager\Policies\MenuItemPolicy;
-use YellowThree\Voyager\Policies\SettingPolicy;
+use YellowThree\Voyager\Models\Policies\BasePolicy;
+use YellowThree\Voyager\Models\Policies\MenuItemPolicy;
+use YellowThree\Voyager\Models\Policies\SettingPolicy;
 use YellowThree\Voyager\Providers\VoyagerDummyServiceProvider;
 use YellowThree\Voyager\Providers\VoyagerEventServiceProvider;
 use YellowThree\Voyager\Seed;
@@ -55,7 +55,7 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // KRITIK: Package SFC bileşenleri için Livewire namespace kaydı
+        // KRITIK: Package SFC/MFC bileşenleri için Livewire namespace kaydı
         // `<livewire:voyager::⚡component-name />` şeklinde kullanım sağlar
         try {
             if (class_exists(\Livewire\Livewire::class)) {
@@ -388,6 +388,7 @@ class VoyagerServiceProvider extends ServiceProvider
         $this->commands(Console\ExportBreadsCommand::class);
         $this->commands(Console\ImportBreadsCommand::class);
         $this->commands(Console\UpgradeCommand::class);
+        $this->commands(Console\ValidateLangCommand::class);
     }
 
     /**

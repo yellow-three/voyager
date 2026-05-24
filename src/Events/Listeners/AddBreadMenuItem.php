@@ -1,6 +1,6 @@
 <?php
 
-namespace YellowThree\Voyager\Listeners;
+namespace YellowThree\Voyager\Events\Listeners;
 
 use YellowThree\Voyager\Events\BreadAdded;
 use YellowThree\Voyager\Facades\Voyager;

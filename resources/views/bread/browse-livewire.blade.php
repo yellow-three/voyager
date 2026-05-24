@@ -3,5 +3,5 @@
 @section('page_title', __('voyager::generic.browse'))
 
 @section('content')
-    <livewire:voyager::⚡bread-table :slug="$slug" />
+    <livewire:voyager::bread-table :slug="$slug" />
 @stop

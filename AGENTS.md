@@ -65,14 +65,23 @@ FormfieldPlugin  MenuPlugin  WidgetPlugin
 AuthenticationPlugin  AuthorizationPlugin  FilterPlugin
 ```
 
-### Karar D — Livewire Package Path (KRİTİK)
+### Karar D — Livewire addNamespace + addLocation (KRİTİK)
 
 Package SFC/MFC'leri otomatik keşfedilmez. `VoyagerServiceProvider::register()` içinde **zorunlu:**
 
 ```php
-Livewire::addComponentPath(
-    namespace: 'YellowThree\\Voyager',
-    path: __DIR__.'/../resources/views/components',
+Livewire::addNamespace(
+    namespace: 'voyager',
+    viewPath: __DIR__.'/../resources/views/components',
+);
+```
+
+Plugin'ler kendi component'leri için `Livewire::addLocation()` kullanır:
+
+```php
+\Livewire\Livewire::addLocation(
+    viewPath: __DIR__.'/../resources/views/components',
+    classNamespace: 'YellowThree\\VoyagerMenu',
 );
 ```
 
@@ -128,7 +137,7 @@ PHP namespace: `YellowThree\Voyager\...` — eski `TCG\Voyager` **kullanılmıyo
 
 ### Livewire Kayıt
 
-SFC/MFC için `Livewire::addComponentPath()` yeterli (Karar D). Class-based varsa:
+SFC/MFC için `Livewire::addLocation()` yeterli (Karar D). Class-based varsa:
 
 ```php
 // Sadece class-based için gerekli (kullanılmıyor)
@@ -329,7 +338,7 @@ Tüm kodlama `3.x` branch'inde yapılır. `1.7` üzerinde değişiklik yapılmaz
 - [ ] Namespace `YellowThree\Voyager` — eski `TCG\Voyager` **yok**
 - [ ] Yeni Livewire bileşen SFC/MFC kurallarına uygun
 - [ ] Yeni plugin `BasePlugin` extend ediyor, sadece ihtiyacı olan contract'ı implement ediyor
-- [ ] `Livewire::addComponentPath()` `VoyagerServiceProvider::register()`'da mevcut
+- [ ] `Livewire::addNamespace()` `VoyagerServiceProvider::register()`'da mevcut
 - [ ] `BreadManager` singleton `VoyagerServiceProvider::register()`'da kayıtlı
 - [ ] Dil dosyası anahtarları (varsa) eklendi
 - [ ] Playwright E2E (varsa) geçiyor
@@ -494,13 +503,13 @@ grep -r 'TCG\\Voyager' src/ tests/ publishable/config/
 git checkout -b 3.x
 
 # 6. VoyagerServiceProvider'a ekle (Karar D):
-#    Livewire::addComponentPath(namespace: ..., path: ...)
+#    Livewire::addNamespace(namespace: 'voyager', viewPath: ...)
 #    BreadManager singleton
 #    PluginManager singleton
 
 # 7. Basit SFC test: compass bileşeni render oluyor mu?
 #    → Evet: Aşama 1a tamamlandı, 1b'ye geç
-#    → Hayır: addComponentPath'i kontrol et
+#    → Hayır: addNamespace/addLocation'i kontrol et
 ```
 
 ---
@@ -574,7 +583,7 @@ Commit mesajı ve push durumunu söyle.
 8. Packagist paket adı **`yellow-three/voyager`** — plugin'ler için `yellow-three/voyager-blog`, `yellow-three/voyager-menu`.
 9. Upstream `thedevdojo/voyager` Şubat 2025'te arşivlenmiştir. Sadece tarihsel referans amaçlıdır.
 10. **`src/Core/` klasörü yoktur** — flat `src/` yapısı kullanılır (Karar B).
-11. **`Livewire::addComponentPath()`** `VoyagerServiceProvider::register()` içinde zorunludur (Karar D). Eksikse hiçbir SFC çalışmaz.
+11. **`Livewire::addNamespace()`** `VoyagerServiceProvider::register()` içinde zorunludur (Karar D). Eksikse hiçbir SFC çalışmaz.
 12. **BreadManager** singleton olarak kaydedilir. BREAD'e erişim her zaman `app(BreadManager::class)` veya `app('voyager.bread')` üzerinden.
 13. **Plugin** yazarken `BasePlugin` extend et, sadece ihtiyacın olan contract'ı implement et. 9 metod implement etmek zorunda değilsin.
 14. **FormField view'leri** Blade partial'dır, SFC değildir. `resources/views/formfields/` altında.

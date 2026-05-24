@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
@@ -55,7 +55,7 @@ new class extends Component {
         session()->flash('message', __('voyager::profile.successfully_saved') ?? 'Profile successfully updated.');
     }
 };
-@endphp
+?>
 
 <div class="max-w-4xl space-y-8">
     <!-- Header -->

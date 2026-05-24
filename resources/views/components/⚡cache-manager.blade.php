@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use Illuminate\Support\Facades\Artisan;
 
@@ -39,7 +39,7 @@ new class extends Component {
         }
     }
 };
-@endphp
+?>
 
 <div class="max-w-4xl space-y-6">
     <!-- Header -->

@@ -12,8 +12,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700&display=swap" rel="stylesheet">
 
-    <!-- Vite Assets -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Build Assets -->
+    <link rel="stylesheet" href="{{ voyager_asset('build/app.css') }}">
+    <script defer src="{{ voyager_asset('build/app2.js') }}"></script>
 
     @yield('pre_css')
 

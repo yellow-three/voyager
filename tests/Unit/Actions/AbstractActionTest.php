@@ -2,7 +2,7 @@
 
 namespace YellowThree\Voyager\Tests\Unit\Actions;
 
-use YellowThree\Voyager\Actions\AbstractAction;
+use YellowThree\Voyager\Bread\Actions\AbstractAction;
 use YellowThree\Voyager\Facades\Voyager;
 use YellowThree\Voyager\Models\User;
 use YellowThree\Voyager\Tests\TestCase;

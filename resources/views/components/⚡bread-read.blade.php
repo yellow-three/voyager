@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use YellowThree\Voyager\Facades\Voyager;
 
@@ -32,7 +32,7 @@ new class extends Component {
         return $modelClass::findOrFail($this->recordId);
     }
 };
-@endphp
+?>
 
 <div class="space-y-6">
     <!-- Header -->

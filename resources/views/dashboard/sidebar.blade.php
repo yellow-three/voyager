@@ -36,6 +36,6 @@
 
     <!-- Dynamic Admin Menu -->
     <nav class="flex-1 overflow-y-auto">
-        <livewire:voyager::⚡admin-menu />
+        <livewire:voyager::admin-menu />
     </nav>
 </div>

@@ -1,7 +1,7 @@
-@extends('voyager::master')
+@extends('voyager::layouts.admin')
 
 @section('page_title', 'Cache Manager')
 
 @section('content')
-    <livewire:voyager::⚡cache-manager />
+    <livewire:voyager::cache-manager />
 @stop

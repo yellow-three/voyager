@@ -1,4 +1,4 @@
-@php
+<?php
 use Livewire\Component;
 use YellowThree\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\Schema;
@@ -100,7 +100,7 @@ new class extends Component {
         $this->redirect(route('voyager.'.$this->dataType->slug.'.index'));
     }
 };
-@endphp
+?>
 
 <div class="space-y-6">
     <!-- Header -->
