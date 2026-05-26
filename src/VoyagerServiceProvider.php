@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager;
+namespace YellowThree\Voyager;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,19 +16,19 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageServiceProvider;
-use TCG\Voyager\Events\FormFieldsRegistered;
-use TCG\Voyager\Facades\Voyager as VoyagerFacade;
-use TCG\Voyager\FormFields\After\DescriptionHandler;
-use TCG\Voyager\Http\Middleware\VoyagerAdminMiddleware;
-use TCG\Voyager\Models\MenuItem;
-use TCG\Voyager\Models\Setting;
-use TCG\Voyager\Policies\BasePolicy;
-use TCG\Voyager\Policies\MenuItemPolicy;
-use TCG\Voyager\Policies\SettingPolicy;
-use TCG\Voyager\Providers\VoyagerDummyServiceProvider;
-use TCG\Voyager\Providers\VoyagerEventServiceProvider;
-use TCG\Voyager\Seed;
-use TCG\Voyager\Translator\Collection as TranslatorCollection;
+use YellowThree\Voyager\Events\FormFieldsRegistered;
+use YellowThree\Voyager\Facades\Voyager as VoyagerFacade;
+use YellowThree\Voyager\FormFields\After\DescriptionHandler;
+use YellowThree\Voyager\Http\Middleware\VoyagerAdminMiddleware;
+use YellowThree\Voyager\Models\MenuItem;
+use YellowThree\Voyager\Models\Setting;
+use YellowThree\Voyager\Models\Policies\BasePolicy;
+use YellowThree\Voyager\Models\Policies\MenuItemPolicy;
+use YellowThree\Voyager\Models\Policies\SettingPolicy;
+use YellowThree\Voyager\Providers\VoyagerDummyServiceProvider;
+use YellowThree\Voyager\Providers\VoyagerEventServiceProvider;
+use YellowThree\Voyager\Seed;
+use YellowThree\Voyager\Translator\Collection as TranslatorCollection;
 
 class VoyagerServiceProvider extends ServiceProvider
 {
@@ -55,8 +55,21 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // KRITIK: Package SFC/MFC bileşenleri için Livewire namespace kaydı
+        // `<livewire:voyager::⚡component-name />` şeklinde kullanım sağlar
+        try {
+            if (class_exists(\Livewire\Livewire::class)) {
+                \Livewire\Livewire::addNamespace(
+                    namespace: 'voyager',
+                    viewPath: __DIR__.'/../resources/views/components',
+                );
+            }
+        } catch (\Throwable $e) {
+            // Safe fallback for CLI or light test suites
+        }
+
         $this->app->register(VoyagerEventServiceProvider::class);
-        $this->app->register(ImageServiceProvider::class);
+        // $this->app->register(ImageServiceProvider::class);
         $this->app->register(VoyagerDummyServiceProvider::class);
 
         $loader = AliasLoader::getInstance();
@@ -65,6 +78,21 @@ class VoyagerServiceProvider extends ServiceProvider
         $this->app->singleton('voyager', function () {
             return new Voyager();
         });
+
+        // BreadManager singleton
+        $this->app->singleton(Bread\BreadManager::class, function () {
+            return new Bread\BreadManager(
+                json: new Bread\Sources\JsonBreadSource(storage_path('voyager/breads')),
+                database: new Bread\Sources\DatabaseBreadSource(),
+            );
+        });
+        $this->app->alias(Bread\BreadManager::class, 'voyager.bread');
+
+        // PluginManager singleton
+        $this->app->singleton(Plugins\PluginManager::class);
+
+        // ThemeManager singleton
+        $this->app->singleton(Themes\ThemeManager::class);
 
         $this->app->singleton('VoyagerGuard', function () {
             return config('auth.defaults.guard', 'web');
@@ -132,6 +160,9 @@ class VoyagerServiceProvider extends ServiceProvider
         if (method_exists('Paginator', 'useBootstrap')) {
             Paginator::useBootstrap();
         }
+
+        // Backward compatibility shims boot
+        \YellowThree\Voyager\BackwardCompatibility\FormFieldShim::boot();
     }
 
     /**
@@ -219,7 +250,7 @@ class VoyagerServiceProvider extends ServiceProvider
         $components = ['title', 'text', 'button'];
 
         foreach ($components as $component) {
-            $class = 'TCG\\Voyager\\Alert\\Components\\'.ucfirst(Str::camel($component)).'Component';
+            $class = 'YellowThree\\Voyager\\Alert\\Components\\'.ucfirst(Str::camel($component)).'Component';
 
             $this->app->bind("voyager.alert.components.{$component}", $class);
         }
@@ -337,7 +368,7 @@ class VoyagerServiceProvider extends ServiceProvider
         foreach ($formFields as $formField) {
             $class = Str::studly("{$formField}_handler");
 
-            VoyagerFacade::addFormField("TCG\\Voyager\\FormFields\\{$class}");
+            VoyagerFacade::addFormField("YellowThree\\Voyager\\FormFields\\{$class}");
         }
 
         VoyagerFacade::addAfterFormField(DescriptionHandler::class);
@@ -350,9 +381,14 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     private function registerConsoleCommands()
     {
-        $this->commands(Commands\InstallCommand::class);
-        $this->commands(Commands\ControllersCommand::class);
-        $this->commands(Commands\AdminCommand::class);
+        $this->commands(Console\InstallCommand::class);
+        $this->commands(Console\ControllersCommand::class);
+        $this->commands(Console\AdminCommand::class);
+        $this->commands(Console\MakePluginCommand::class);
+        $this->commands(Console\ExportBreadsCommand::class);
+        $this->commands(Console\ImportBreadsCommand::class);
+        $this->commands(Console\UpgradeCommand::class);
+        $this->commands(Console\ValidateLangCommand::class);
     }
 
     /**
@@ -360,6 +396,6 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     private function registerAppCommands()
     {
-        $this->commands(Commands\MakeModelCommand::class);
+        $this->commands(Console\MakeModelCommand::class);
     }
 }

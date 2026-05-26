@@ -10,22 +10,13 @@
 * [Upgrading](getting-started/upgrading.md)
 * [Configurations](getting-started/configurations.md)
 
-## BREAD
+## Migration
 
-* [Introduction](bread/introduction.md)
-* [Relationships](bread/relationships.md)
-* [Formfields](bread/formfields/introduction.md)
-  * [Checkbox/Multiple Checkbox/Radio](bread/formfields/checkbox.md)
-  * [Coordinates](bread/formfields/coordinates.md)
-  * [Date & Time](bread/formfields/date-time.md)
-  * [Dropdown](bread/formfields/dropdown.md)
-  * [Images](bread/formfields/images.md)
-  * [Media Picker](bread/formfields/media-picker.md)
-  * [Number](bread/formfields/number.md)
-  * [TinyMCE](bread/formfields/tinymce.md)
+* [tcg/voyager → yellow-three/voyager](migration.md)
 
 ## Core concepts
 
+* [BREAD Manager](bread-json.md)
 * [Routing](core-concepts/routing.md)
 * [Media Manager](core-concepts/media-manager.md)
 * [Menus and Menu Builder](core-concepts/menus-and-menu-builder.md)
@@ -35,6 +26,11 @@
 * [Roles and Permissions](core-concepts/roles-and-permissions.md)
 * [Helper methods](core-concepts/helper-methods.md)
 * [Multilanguage](core-concepts/multilanguage.md)
+
+## Plugin Development
+
+* [Plugin Development Guide](plugin-development.md)
+* [Plugin Generator](plugin-development.md#scaffold-with-cli-generator)
 
 ## Customization
 

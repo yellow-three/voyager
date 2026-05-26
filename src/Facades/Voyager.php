@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Facades;
+namespace YellowThree\Voyager\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -12,7 +12,7 @@ class Voyager extends Facade
      * @method static string image($file, $default = '')
      * @method static $this useModel($name, $object)
      *
-     * @see \TCG\Voyager\Voyager
+     * @see \YellowThree\Voyager\Voyager
      * @return string
      */
     protected static function getFacadeAccessor()

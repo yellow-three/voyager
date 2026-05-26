@@ -1,10 +1,10 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace YellowThree\Voyager\Tests;
 
 use Illuminate\Support\Facades\Auth;
-use TCG\Voyager\Models\Permission;
-use TCG\Voyager\Models\Role;
+use YellowThree\Voyager\Models\Permission;
+use YellowThree\Voyager\Models\Role;
 
 class PermissionTest extends TestCase
 {

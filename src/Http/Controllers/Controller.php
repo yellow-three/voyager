@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Http\Controllers;
+namespace YellowThree\Voyager\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -9,19 +9,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
-use TCG\Voyager\Events\FileDeleted;
-use TCG\Voyager\Http\Controllers\ContentTypes\Checkbox;
-use TCG\Voyager\Http\Controllers\ContentTypes\Coordinates;
-use TCG\Voyager\Http\Controllers\ContentTypes\File;
-use TCG\Voyager\Http\Controllers\ContentTypes\Image as ContentImage;
-use TCG\Voyager\Http\Controllers\ContentTypes\MultipleCheckbox;
-use TCG\Voyager\Http\Controllers\ContentTypes\MultipleImage;
-use TCG\Voyager\Http\Controllers\ContentTypes\Password;
-use TCG\Voyager\Http\Controllers\ContentTypes\Relationship;
-use TCG\Voyager\Http\Controllers\ContentTypes\SelectMultiple;
-use TCG\Voyager\Http\Controllers\ContentTypes\Text;
-use TCG\Voyager\Http\Controllers\ContentTypes\Timestamp;
-use TCG\Voyager\Traits\AlertsMessages;
+use YellowThree\Voyager\Events\FileDeleted;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\Checkbox;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\Coordinates;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\File;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\Image as ContentImage;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\MultipleCheckbox;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\MultipleImage;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\Password;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\Relationship;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\SelectMultiple;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\Text;
+use YellowThree\Voyager\Http\Controllers\ContentTypes\Timestamp;
+use YellowThree\Voyager\Traits\AlertsMessages;
 use Validator;
 
 abstract class Controller extends BaseController

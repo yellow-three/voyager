@@ -1,11 +1,11 @@
 <?php
 
-namespace TCG\Voyager;
+namespace YellowThree\Voyager;
 
 use ArrayAccess;
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
-use TCG\Voyager\Facades\Voyager as VoyagerFacade;
+use YellowThree\Voyager\Facades\Voyager as VoyagerFacade;
 
 class Translator implements ArrayAccess, JsonSerializable
 {
@@ -303,7 +303,7 @@ class Translator implements ArrayAccess, JsonSerializable
     public function __call($method, array $arguments)
     {
         if (!$this->model->hasTranslatorMethod($method)) {
-            throw new \Exception('Call to undefined method TCG\Voyager\Translator::'.$method.'()');
+            throw new \Exception('Call to undefined method YellowThree\Voyager\Translator::'.$method.'()');
         }
 
         return call_user_func_array([$this, 'runTranslatorMethod'], [$method, $arguments]);

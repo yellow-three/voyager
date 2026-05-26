@@ -1,50 +1,55 @@
 {
-  "name": "tcg/voyager",
-  "description": "A Laravel Admin Package for The Control Group to make your life easier and steer your project in the right direction",
+  "name": "yellow-three/voyager",
+  "description": "Community fork of the archived thedevdojo/voyager — Laravel 13 + Livewire 4 + Tailwind CSS 4",
   "keywords": [
     "laravel",
     "admin",
-    "panel"
+    "panel",
+    "voyager",
+    "livewire",
+    "tailwindcss"
   ],
   "license": "MIT",
-  "homepage": "https://voyager.devdojo.com/",
+  "homepage": "https://github.com/yellow-three/voyager",
   "support": {
-    "issues": "https://github.com/the-control-group/voyager/issues",
-    "source": "https://github.com/the-control-group/voyager"
+    "issues": "https://github.com/yellow-three/voyager/issues",
+    "source": "https://github.com/yellow-three/voyager"
   },
   "authors": [
     {
-      "name": "Tony Lea",
-      "email": "tony.lea@thecontrolgroup.com"
+      "name": "yellow-three",
+      "homepage": "https://github.com/yellow-three"
     }
   ],
   "require": {
-    "php": "^7.3|^7.4|^8.0|^8.1|^8.2|^8.3",
-    "illuminate/support": "~8.0|~9.0|~10.0|~11.0",
-    "intervention/image": "^2.7|^3.0",
+    "php": "^8.3|^8.4|^8.5",
+    "illuminate/support": "^13.0",
+    "livewire/livewire": "^3.0|^4.0",
+    "intervention/image": "^3.0",
     "doctrine/dbal": "^3.1|^3.5|^4.0",
     "laravel/ui": ">=1.0",
-    "arrilot/laravel-widgets": "^3.7",
-    "league/flysystem": "~1.1|~2.0|~3.0",
+    "league/flysystem": "~3.0",
     "ext-json": "*"
   },
   "require-dev": {
-    "phpunit/phpcov": ">=6.0",
-    "phpunit/phpunit": ">=8.0",
-    "laravel/framework": "~8.0|~9.0|~10.0",
-    "orchestra/testbench": ">=6.0",
-    "laravel/browser-kit-testing": ">=6.1.0",
-    "orchestra/testbench-browser-kit": ">=4.0"
+    "pestphp/pest": "^4.0",
+    "pestphp/pest-plugin-livewire": "^4.0",
+    "laravel/framework": "^13.0",
+    "orchestra/testbench": "^11.0",
+    "orchestra/testbench-browser-kit": "^11.0",
+    "laravel/pint": "^1.0"
   },
   "autoload": {
     "psr-4": {
-      "TCG\\Voyager\\": "src/"
+      "YellowThree\\Voyager\\": "src/",
+      "YellowThree\\VoyagerMenu\\": "plugins/menu/src/",
+      "YellowThree\\VoyagerBlog\\": "plugins/blog/src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "TCG\\Voyager\\Tests\\": "tests/",
-      "TCG\\Voyager\\Tests\\Database\\Factories\\": "tests/database/factories/",
+      "YellowThree\\Voyager\\Tests\\": "tests/",
+      "YellowThree\\Voyager\\Tests\\Database\\Factories\\": "tests/database/factories/",
       "Database\\Seeders\\": "vendor/orchestra/testbench-core/laravel/database/seeders"
     }
   },
@@ -52,8 +57,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "TCG\\Voyager\\VoyagerServiceProvider",
-        "TCG\\Voyager\\Providers\\VoyagerDummyServiceProvider"
+        "YellowThree\\Voyager\\VoyagerServiceProvider",
+        "YellowThree\\Voyager\\Providers\\VoyagerDummyServiceProvider",
+        "YellowThree\\VoyagerMenu\\MenuServiceProvider",
+        "YellowThree\\VoyagerBlog\\BlogServiceProvider"
       ]
     }
   },
@@ -61,5 +68,10 @@
     "post-autoload-dump": [
       "@php vendor/bin/testbench package:discover --ansi"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   }
 }

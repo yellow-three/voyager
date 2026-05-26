@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\FormFields;
+namespace YellowThree\Voyager\FormFields;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;

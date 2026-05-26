@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Events;
+namespace YellowThree\Voyager\Events;
 
 use Illuminate\Queue\SerializesModels;
-use TCG\Voyager\Models\DataType;
+use YellowThree\Voyager\Models\DataType;
 
 class BreadDataUpdated
 {

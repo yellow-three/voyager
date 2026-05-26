@@ -1,10 +1,10 @@
 <?php
 
-namespace TCG\Voyager\Tests\Unit;
+namespace YellowThree\Voyager\Tests\Unit;
 
 use Illuminate\Support\Facades\Config;
-use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Tests\TestCase;
+use YellowThree\Voyager\Facades\Voyager;
+use YellowThree\Voyager\Tests\TestCase;
 
 class VoyagerTest extends TestCase
 {

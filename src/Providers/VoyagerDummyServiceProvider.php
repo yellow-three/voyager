@@ -1,10 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Providers;
+namespace YellowThree\Voyager\Providers;
 
-use Arrilot\Widgets\ServiceProvider as WidgetServiceProvider;
 use Illuminate\Support\ServiceProvider;
-use TCG\Voyager\Seed;
+use YellowThree\Voyager\Seed;
 
 class VoyagerDummyServiceProvider extends ServiceProvider
 {
@@ -13,8 +12,6 @@ class VoyagerDummyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(WidgetServiceProvider::class);
-
         $this->registerConfigs();
 
         if ($this->app->runningInConsole()) {
@@ -39,10 +36,6 @@ class VoyagerDummyServiceProvider extends ServiceProvider
             'dummy_config' => [
                 "{$publishablePath}/config/voyager_dummy.php" => config_path('voyager.php'),
             ],
-            'dummy_migrations' => [
-                "{$publishablePath}/database/migrations/" => database_path('migrations'),
-            ],
-
         ];
 
         foreach ($publishable as $group => $paths) {

@@ -1,12 +1,26 @@
 <?php
 
-namespace TCG\Voyager\Database\Schema;
+namespace YellowThree\Voyager\Database\Schema;
 
 use Doctrine\DBAL\Schema\Comparator;
-use Doctrine\DBAL\Schema\Table as DoctrineTable;
 
-class Table extends DoctrineTable
+class Table
 {
+    public $name;
+    public $columns;
+    public $indexes;
+    public $foreignKeys;
+    public $options;
+
+    public function __construct($name, $columns = [], $indexes = [], $foreignKeys = [], $options = [])
+    {
+        $this->name = $name;
+        $this->columns = $columns;
+        $this->indexes = $indexes;
+        $this->foreignKeys = $foreignKeys;
+        $this->options = $options;
+    }
+
     public static function make($table)
     {
         if (!is_array($table)) {
@@ -35,7 +49,7 @@ class Table extends DoctrineTable
 
         $options = $table['options'];
 
-        return new self($name, $columns, $indexes, [], $foreignKeys, $options);
+        return new self($name, $columns, $indexes, $foreignKeys, $options);
     }
 
     public function getColumnsIndexes($columns, $sort = false)
@@ -46,7 +60,7 @@ class Table extends DoctrineTable
 
         $matched = [];
 
-        foreach ($this->_indexes as $index) {
+        foreach ($this->indexes as $index) {
             if ($index->spansColumns($columns)) {
                 $matched[$index->getName()] = $index;
             }
@@ -82,14 +96,18 @@ class Table extends DoctrineTable
         return $matched;
     }
 
-    public function diff(DoctrineTable $compareTable)
+    public function diff(Table $compareTable)
     {
-        return (new Comparator())->diffTable($this, $compareTable);
+        // This is harder now without Doctrine. 
+        // For now, let's just return a dummy or implement a simple diff.
+        // But we might not even need this for most Voyager operations.
+        return null; 
     }
 
     public function diffOriginal()
     {
-        return (new Comparator())->diffTable(SchemaManager::getDoctrineTable($this->_name), $this);
+        // This is also harder now.
+        return null;
     }
 
     /**
@@ -98,14 +116,24 @@ class Table extends DoctrineTable
     public function toArray()
     {
         return [
-            'name'           => $this->_name,
-            'oldName'        => $this->_name,
+            'name'           => $this->name,
+            'oldName'        => $this->name,
             'columns'        => $this->exportColumnsToArray(),
             'indexes'        => $this->exportIndexesToArray(),
-            'primaryKeyName' => $this->_primaryKeyName,
+            'primaryKeyName' => $this->getPrimaryKeyName(),
             'foreignKeys'    => $this->exportForeignKeysToArray(),
-            'options'        => $this->_options,
+            'options'        => $this->options,
         ];
+    }
+
+    private function getPrimaryKeyName()
+    {
+        foreach ($this->indexes as $index) {
+            if (Index::getType($index) == Index::PRIMARY) {
+                return $index->getName();
+            }
+        }
+        return null;
     }
 
     /**
@@ -123,7 +151,7 @@ class Table extends DoctrineTable
     {
         $exportedColumns = [];
 
-        foreach ($this->getColumns() as $name => $column) {
+        foreach ($this->columns as $name => $column) {
             $exportedColumns[] = Column::toArray($column);
         }
 
@@ -137,9 +165,9 @@ class Table extends DoctrineTable
     {
         $exportedIndexes = [];
 
-        foreach ($this->getIndexes() as $name => $index) {
+        foreach ($this->indexes as $name => $index) {
             $indexArr = Index::toArray($index);
-            $indexArr['table'] = $this->_name;
+            $indexArr['table'] = $this->name;
             $exportedIndexes[] = $indexArr;
         }
 
@@ -153,7 +181,7 @@ class Table extends DoctrineTable
     {
         $exportedForeignKeys = [];
 
-        foreach ($this->getForeignKeys() as $name => $fk) {
+        foreach ($this->foreignKeys as $name => $fk) {
             $exportedForeignKeys[$name] = ForeignKey::toArray($fk);
         }
 

@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use TCG\Voyager\Models\DataRow;
-use TCG\Voyager\Models\DataType;
+use YellowThree\Voyager\Models\DataRow;
+use YellowThree\Voyager\Models\DataType;
 
 class DataRowsTableSeeder extends Seeder
 {

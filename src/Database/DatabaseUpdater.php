@@ -1,13 +1,13 @@
 <?php
 
-namespace TCG\Voyager\Database;
+namespace YellowThree\Voyager\Database;
 
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\SchemaException;
 use Doctrine\DBAL\Schema\TableDiff;
-use TCG\Voyager\Database\Schema\SchemaManager;
-use TCG\Voyager\Database\Schema\Table;
-use TCG\Voyager\Database\Types\Type;
+use YellowThree\Voyager\Database\Schema\SchemaManager;
+use YellowThree\Voyager\Database\Schema\Table;
+use YellowThree\Voyager\Database\Types\Type;
 
 class DatabaseUpdater
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Http\Controllers;
+namespace YellowThree\Voyager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Constraint;
 use Intervention\Image\Facades\Image;
-use TCG\Voyager\Facades\Voyager;
+use YellowThree\Voyager\Facades\Voyager;
 
 class VoyagerController extends Controller
 {
@@ -81,16 +81,34 @@ class VoyagerController extends Controller
 
     public function assets(Request $request)
     {
+        $path = urldecode($request->input('path'));
+        $baseDir = dirname(__DIR__, 3);
+
+        // If path starts with 'build/', serve from Vite build directory
+        if (Str::startsWith($path, 'build/')) {
+            $buildFile = substr($path, 6);
+            $buildPath = $baseDir.'/publishable/assets/build/'.$buildFile;
+
+            if (File::exists($buildPath)) {
+                $mime = Str::endsWith($buildPath, '.js') ? 'text/javascript' : (Str::endsWith($buildPath, '.css') ? 'text/css' : File::mimeType($buildPath));
+                $response = response(File::get($buildPath), 200, ['Content-Type' => $mime]);
+                $response->setSharedMaxAge(31536000);
+                $response->setMaxAge(31536000);
+                $response->setExpires(new \DateTime('+1 year'));
+                return $response;
+            }
+
+            return response('', 404);
+        }
+
+        // Serve from legacy assets directory
         try {
             if (class_exists(\League\Flysystem\Util::class)) {
-                // Flysystem 1.x
-                $path = dirname(__DIR__, 3).'/publishable/assets/'.\League\Flysystem\Util::normalizeRelativePath(urldecode($request->path));
+                $path = $baseDir.'/publishable/assets/'.\League\Flysystem\Util::normalizeRelativePath($path);
             } elseif (class_exists(\League\Flysystem\WhitespacePathNormalizer::class)) {
-                // Flysystem >= 2.x
                 $normalizer = new \League\Flysystem\WhitespacePathNormalizer();
-                $path = dirname(__DIR__, 3).'/publishable/assets/'. $normalizer->normalizePath(urldecode($request->path));
+                $path = $baseDir.'/publishable/assets/'. $normalizer->normalizePath($path);
             }
-            
         } catch (\LogicException $e) {
             abort(404);
         }

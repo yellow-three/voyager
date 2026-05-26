@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\FormFields\After;
+namespace YellowThree\Voyager\FormFields\After;
 
 interface HandlerInterface
 {

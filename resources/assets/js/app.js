@@ -30,18 +30,25 @@ window.helpers = require('./helpers.js');
 
 Vue.component('admin-menu', require('./components/admin_menu.vue').default);
 
-var admin_menu = new Vue({
-    el: '#adminmenu',
-});
+// Only init if the element exists (dashboard uses Livewire now)
+if (document.querySelector('#adminmenu')) {
+    var admin_menu = new Vue({
+        el: '#adminmenu',
+    });
+}
 
 $(document).ready(function () {
     var appContainer = $(".app-container"),
         fadedOverlay = $('.fadetoblack'),
         hamburger = $('.hamburger');
 
-    new PerfectScrollbar('.side-menu');
+    if (document.querySelector('.side-menu')) {
+        new PerfectScrollbar('.side-menu');
+    }
 
-    $('#voyager-loader').fadeOut();
+    if ($('#voyager-loader').length) {
+        $('#voyager-loader').fadeOut();
+    }
 
     $(".hamburger, .navbar-expand-toggle").on('click', function () {
         appContainer.toggleClass("expanded");

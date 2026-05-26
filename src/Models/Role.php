@@ -1,11 +1,11 @@
 <?php
 
-namespace TCG\Voyager\Models;
+namespace YellowThree\Voyager\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Tests\Database\Factories\RoleFactory;
+use YellowThree\Voyager\Facades\Voyager;
+use YellowThree\Voyager\Tests\Database\Factories\RoleFactory;
 
 class Role extends Model
 {

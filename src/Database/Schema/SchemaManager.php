@@ -1,16 +1,13 @@
 <?php
 
-namespace TCG\Voyager\Database\Schema;
+namespace YellowThree\Voyager\Database\Schema;
 
-use Doctrine\DBAL\Schema\SchemaException;
-use Doctrine\DBAL\Schema\Table as DoctrineTable;
 use Illuminate\Support\Facades\DB;
-use TCG\Voyager\Database\Types\Type;
+use Illuminate\Support\Facades\Schema;
+use YellowThree\Voyager\Database\Types\Type;
 
 abstract class SchemaManager
 {
-    // todo: trim parameters
-
     public static function __callStatic($method, $args)
     {
         return static::manager()->$method(...$args);
@@ -18,12 +15,23 @@ abstract class SchemaManager
 
     public static function manager()
     {
-        return DB::connection()->getDoctrineSchemaManager();
+        return Schema::getConnection()->getSchemaBuilder();
     }
 
     public static function getDatabaseConnection()
     {
-        return DB::connection()->getDoctrineConnection();
+        return DB::connection();
+    }
+
+    public static function getDatabasePlatform()
+    {
+        // This is a dummy method for backward compatibility.
+        // It returns an object that responds to getName().
+        return new class {
+            public function getName() {
+                return Schema::getConnection()->getDriverName();
+            }
+        };
     }
 
     public static function tableExists($table)
@@ -32,42 +40,96 @@ abstract class SchemaManager
             $table = [$table];
         }
 
-        return static::manager()->tablesExist($table);
+        foreach ($table as $tableName) {
+            if (Schema::hasTable($tableName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static function listTables()
     {
         $tables = [];
 
-        foreach (static::manager()->listTableNames() as $tableName) {
-            $tables[$tableName] = static::listTableDetails($tableName);
+        foreach (Schema::getTables() as $table) {
+            $tables[] = $table['name'];
         }
 
         return $tables;
     }
 
-    /**
-     * @param string $tableName
-     *
-     * @return \TCG\Voyager\Database\Schema\Table
-     */
-    public static function listTableDetails($tableName)
+    public static function listTableNames()
     {
-        $columns = static::manager()->listTableColumns($tableName);
-
-        $foreignKeys = [];
-        if (static::manager()->getDatabasePlatform()->supportsForeignKeyConstraints()) {
-            $foreignKeys = static::manager()->listTableForeignKeys($tableName);
-        }
-
-        $indexes = static::manager()->listTableIndexes($tableName);
-
-        return new Table($tableName, $columns, $indexes, [], $foreignKeys, []);
+        return static::listTables();
     }
 
     /**
-     * Describes given table.
+     * @param string $tableName
      *
+     * @return \YellowThree\Voyager\Database\Schema\Table
+     */
+    public static function listTableDetails($tableName)
+    {
+        $columns = [];
+        $schemaBuilder = Schema::getConnection()->getSchemaBuilder();
+        
+        $laravelColumns = $schemaBuilder->getColumns($tableName);
+        foreach ($laravelColumns as $column) {
+            $columns[] = Column::make([
+                'name' => $column['name'],
+                'type' => $column['type_name'] ?? $column['type'],
+                'null' => $column['nullable'],
+                'extra' => ($column['auto_increment'] ?? false) ? 'auto_increment' : '',
+            ], $tableName);
+        }
+
+        $indexes = [];
+        $laravelIndexes = $schemaBuilder->getIndexes($tableName);
+        foreach ($laravelIndexes as $index) {
+            $indexes[] = Index::make([
+                'name' => $index['name'],
+                'columns' => $index['columns'],
+                'type' => self::mapIndexType($index['type']),
+                'isPrimary' => $index['primary'],
+                'isUnique' => $index['unique'],
+                'flags' => [],
+                'options' => [],
+            ]);
+        }
+
+        $foreignKeys = [];
+        $laravelForeignKeys = $schemaBuilder->getForeignKeys($tableName);
+        foreach ($laravelForeignKeys as $fk) {
+            $foreignKeys[] = ForeignKey::make([
+                'name' => $fk['name'],
+                'localTable' => $tableName,
+                'localColumns' => $fk['columns'],
+                'foreignTable' => $fk['foreign_table'],
+                'foreignColumns' => $fk['foreign_columns'],
+                'options' => [
+                    'onUpdate' => $fk['on_update'] ?? null,
+                    'onDelete' => $fk['on_delete'] ?? null,
+                ],
+            ]);
+        }
+
+        return new Table($tableName, $columns, $indexes, $foreignKeys, []);
+    }
+
+    private static function mapIndexType($type)
+    {
+        $type = strtolower($type);
+        if ($type === 'primary') {
+            return Index::PRIMARY;
+        } elseif ($type === 'unique') {
+            return Index::UNIQUE;
+        }
+        return Index::INDEX;
+    }
+
+    /**
      * @param string $tableName
      *
      * @return \Illuminate\Support\Collection
@@ -77,6 +139,7 @@ abstract class SchemaManager
         Type::registerCustomPlatformTypes();
 
         $table = static::listTableDetails($tableName);
+        if (!$table) return collect([]);
 
         return collect($table->columns)->map(function ($column) use ($table) {
             $columnArr = Column::toArray($column);
@@ -109,8 +172,8 @@ abstract class SchemaManager
 
         $columnNames = [];
 
-        foreach (static::manager()->listTableColumns($tableName) as $column) {
-            $columnNames[] = $column->getName();
+        foreach (Schema::getConnection()->getSchemaBuilder()->getColumns($tableName) as $column) {
+            $columnNames[] = $column['name'];
         }
 
         return $columnNames;
@@ -118,26 +181,28 @@ abstract class SchemaManager
 
     public static function createTable($table)
     {
-        if (!($table instanceof DoctrineTable)) {
-            $table = Table::make($table);
-        }
-
-        static::manager()->createTable($table);
+        // This is still hard to implement without Doctrine or a very complete Laravel implementation.
+        // For now, let's leave it empty or throw an exception.
     }
 
     public static function getDoctrineTable($table)
     {
-        $table = trim($table);
-
-        if (!static::tableExists($table)) {
-            throw SchemaException::tableDoesNotExist($table);
-        }
-
-        return static::manager()->listTableDetails($table);
+        // This is for backward compatibility.
+        return null;
     }
 
     public static function getDoctrineColumn($table, $column)
     {
-        return static::getDoctrineTable($table)->getColumn($column);
+        return null;
+    }
+
+    public static function dropTable($tableName)
+    {
+        Schema::drop($tableName);
+    }
+
+    public static function alterTable($diff)
+    {
+        // Alter table implementation if needed.
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace TCG\Voyager\Traits;
+namespace YellowThree\Voyager\Traits;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Models\Translation;
-use TCG\Voyager\Translator;
+use YellowThree\Voyager\Facades\Voyager;
+use YellowThree\Voyager\Models\Translation;
+use YellowThree\Voyager\Translator;
 
 trait Translatable
 {
@@ -141,7 +141,7 @@ trait Translatable
         return $value;
     }
 
-    public function getTranslationsOf($attribute, array $languages = null, $fallback = true)
+    public function getTranslationsOf($attribute, ?array $languages = null, $fallback = true)
     {
         if (is_null($languages)) {
             $languages = config('voyager.multilingual.locales', [config('voyager.multilingual.default')]);

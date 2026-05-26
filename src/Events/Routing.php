@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Events;
+namespace YellowThree\Voyager\Events;
 
 use Illuminate\Queue\SerializesModels;
 

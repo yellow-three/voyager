@@ -1,20 +1,20 @@
 <?php
 
-namespace TCG\Voyager\Http\Controllers;
+namespace YellowThree\Voyager\Http\Controllers;
 
 use Exception;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use TCG\Voyager\Database\Schema\SchemaManager;
-use TCG\Voyager\Events\BreadDataAdded;
-use TCG\Voyager\Events\BreadDataDeleted;
-use TCG\Voyager\Events\BreadDataRestored;
-use TCG\Voyager\Events\BreadDataUpdated;
-use TCG\Voyager\Events\BreadImagesDeleted;
-use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
+use YellowThree\Voyager\Database\Schema\SchemaManager;
+use YellowThree\Voyager\Events\BreadDataAdded;
+use YellowThree\Voyager\Events\BreadDataDeleted;
+use YellowThree\Voyager\Events\BreadDataRestored;
+use YellowThree\Voyager\Events\BreadDataUpdated;
+use YellowThree\Voyager\Events\BreadImagesDeleted;
+use YellowThree\Voyager\Facades\Voyager;
+use YellowThree\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 
 class VoyagerBaseController extends Controller
 {
@@ -177,7 +177,7 @@ class VoyagerBaseController extends Controller
         // Define list of columns that can be sorted server side
         $sortableColumns = $this->getSortableColumns($dataType->browseRows);
 
-        $view = 'voyager::bread.browse';
+        $view = 'voyager::bread.browse-livewire';
 
         if (view()->exists("voyager::$slug.browse")) {
             $view = "voyager::$slug.browse";
@@ -257,13 +257,13 @@ class VoyagerBaseController extends Controller
         // Eagerload Relations
         $this->eagerLoadRelations($dataTypeContent, $dataType, 'read', $isModelTranslatable);
 
-        $view = 'voyager::bread.read';
+        $view = 'voyager::bread.read-livewire';
 
         if (view()->exists("voyager::$slug.read")) {
             $view = "voyager::$slug.read";
         }
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'isSoftDeleted'));
+        return Voyager::view($view, compact('slug', 'dataType', 'dataTypeContent', 'isModelTranslatable', 'isSoftDeleted'));
     }
 
     //***************************************
@@ -317,7 +317,7 @@ class VoyagerBaseController extends Controller
         // Eagerload Relations
         $this->eagerLoadRelations($dataTypeContent, $dataType, 'edit', $isModelTranslatable);
 
-        $view = 'voyager::bread.edit-add';
+        $view = 'voyager::bread.edit-add-livewire';
 
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
@@ -418,7 +418,7 @@ class VoyagerBaseController extends Controller
         // Eagerload Relations
         $this->eagerLoadRelations($dataTypeContent, $dataType, 'add', $isModelTranslatable);
 
-        $view = 'voyager::bread.edit-add';
+        $view = 'voyager::bread.edit-add-livewire';
 
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
@@ -823,7 +823,7 @@ class VoyagerBaseController extends Controller
 
         $dataRow = Voyager::model('DataRow')->whereDataTypeId($dataType->id)->whereField($display_column)->first();
 
-        $view = 'voyager::bread.order';
+        $view = 'voyager::bread.order-livewire';
 
         if (view()->exists("voyager::$slug.order")) {
             $view = "voyager::$slug.order";
@@ -831,6 +831,7 @@ class VoyagerBaseController extends Controller
 
         return Voyager::view($view, compact(
             'dataType',
+            'slug',
             'display_column',
             'dataRow',
             'results'

@@ -1,8 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace YellowThree\Voyager\Tests;
 
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AssetsTest extends TestCase
 {
@@ -26,22 +27,18 @@ class AssetsTest extends TestCase
     public static function urlProvider()
     {
         return [
-            [
-                '../dummy_content/pages/page1.jpg',
-                '..../dummy_content/pages/page1.jpg',
-                'images/../../dummy_content/pages/page1.jpg',
-                '....//dummy_content/pages/page1.jpg',
-                '..\dummy_content/pages/page1.jpg',
-                '....\dummy_content/pages/page1.jpg',
-                'images/..\..\dummy_content/pages/page1.jpg',
-                'images/....\\....\\dummy_content/pages/page1.jpg',
-            ],
+            'forward slash parent' => ['../dummy_content/pages/page1.jpg'],
+            'multiple dots forward' => ['..../dummy_content/pages/page1.jpg'],
+            'nested parent' => ['images/../../dummy_content/pages/page1.jpg'],
+            'double slash' => ['....//dummy_content/pages/page1.jpg'],
+            'backslash parent' => ['..\dummy_content/pages/page1.jpg'],
+            'multiple dots backslash' => ['....\dummy_content/pages/page1.jpg'],
+            'nested backslash' => ['images/..\..\dummy_content/pages/page1.jpg'],
+            'multiple backslash' => ['images/....\\....\\dummy_content/pages/page1.jpg'],
         ];
     }
 
-    /**
-     * @dataProvider  urlProvider
-     */
+    #[DataProvider('urlProvider')]
     public function testCannotOpenFileOutsideAssets($url)
     {
         $response = $this->call('GET', route('voyager.dashboard').$this->prefix.$url);

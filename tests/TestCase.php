@@ -1,11 +1,11 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace YellowThree\Voyager\Tests;
 
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Orchestra\Testbench\BrowserKit\TestCase as OrchestraTestCase;
-use TCG\Voyager\Models\User;
-use TCG\Voyager\VoyagerServiceProvider;
+use YellowThree\Voyager\Models\User;
+use YellowThree\Voyager\VoyagerServiceProvider;
 
 class TestCase extends OrchestraTestCase
 {
@@ -47,7 +47,10 @@ class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app)
     {
         return [
+            \Livewire\LivewireServiceProvider::class,
             VoyagerServiceProvider::class,
+            \YellowThree\VoyagerMenu\MenuServiceProvider::class,
+            \YellowThree\VoyagerBlog\BlogServiceProvider::class,
         ];
     }
 
@@ -77,9 +80,12 @@ class TestCase extends OrchestraTestCase
 
         // Setup Voyager configuration
         $app['config']->set('voyager.user.namespace', User::class);
+        // Force correct namespace — overrides any stale testbench-published config
+        $app['config']->set('voyager.controllers.namespace', 'YellowThree\\Voyager\\Http\\Controllers');
 
         // Setup Authentication configuration
         $app['config']->set('auth.providers.users.model', User::class);
+
     }
 
     protected function install()

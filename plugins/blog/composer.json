@@ -1,0 +1,22 @@
+{
+    "name": "yellow-three/voyager-blog",
+    "description": "Voyager v3 Blog Plugin — Posts, Pages, Categories",
+    "keywords": ["laravel", "voyager-plugin"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.3|^8.4|^8.5",
+        "yellow-three/voyager": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "YellowThree\\VoyagerBlog\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "YellowThree\\VoyagerBlog\\BlogServiceProvider"
+            ]
+        }
+    }
+}

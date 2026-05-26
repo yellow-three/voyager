@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Translator;
+namespace YellowThree\Voyager\Translator;
 
 use Illuminate\Support\Collection as IlluminateCollection;
 

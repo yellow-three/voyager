@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Http\Middleware;
+namespace YellowThree\Voyager\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
